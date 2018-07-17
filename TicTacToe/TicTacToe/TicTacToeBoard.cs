@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using TicTacToe.Enum;
@@ -7,7 +8,7 @@ namespace TicTacToe
 {
     public class TicTacToeBoard : IGameBoard
     {
-        private readonly List<PlayedCoordinates> PlayedCoordinates; 
+        private readonly List<PlayerMove> PlayedCoordinates; 
         private int BoardHeight;
         private int BoardWidth;
         private GameStatus GameStatus;
@@ -16,21 +17,21 @@ namespace TicTacToe
         {
             BoardHeight = boardHeight;
             BoardWidth = boardWidth;
-            PlayedCoordinates = new List<PlayedCoordinates>();
+            PlayedCoordinates = new List<PlayerMove>();
             GameStatus = GameStatus.PLAYING;
         }
 
-        public bool PlayPiece(PlayedCoordinates playedCoordinates)
+        public bool PlayPiece(PlayerMove playerMove)
         {
-            if (IsEmptyPosition(playedCoordinates))
+            if (IsEmptyPosition(playerMove))
             {
-                PlayedCoordinates.Add(playedCoordinates);
+                PlayedCoordinates.Add(playerMove);
                 return true;
             }
             return false;
         }
 
-        private bool IsEmptyPosition(PlayedCoordinates playerCoordinates)
+        private bool IsEmptyPosition(PlayerMove playerCoordinates)
         {
             return !PlayedCoordinates.Contains(playerCoordinates);
         }
@@ -52,7 +53,7 @@ namespace TicTacToe
             return PlayedCoordinates.Count == 0;
         }
 
-        public List<PlayedCoordinates> GetPlayedCoordinates()
+        public List<PlayerMove> GetPlayedCoordinates()
         {
             return PlayedCoordinates;
         } 

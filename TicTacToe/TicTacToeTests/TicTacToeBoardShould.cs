@@ -25,12 +25,12 @@ namespace TicTacToeTests
         {
             var game = new TicTacToeBoard(3, 3);
             var coordinates = new Coordinates(1,1);
-            var playedCoordinates = new PlayedCoordinates(Symbol.Cross, coordinates);
-            var actualOutput = game.PlayPiece(playedCoordinates);
+            var playerMove = new PlayerMove(Symbol.Cross, coordinates);
+            var actualOutput = game.PlayPiece(playerMove);
             var expectedOutput = true;
 
             Assert.Equal(expectedOutput, actualOutput);
-            Assert.True(game.GetPlayedCoordinates().Contains(playedCoordinates));
+            Assert.True(game.GetPlayedCoordinates().Contains(playerMove));
         } 
         
         [Fact]
@@ -38,9 +38,9 @@ namespace TicTacToeTests
         {
             var game = new TicTacToeBoard(3, 3);
             var coordinates = new Coordinates(1,1);
-            var playedCoordinates = new PlayedCoordinates(Symbol.Cross, coordinates);
-            var firstPlayPiece = game.PlayPiece(playedCoordinates);
-            var actualOutput = game.PlayPiece(playedCoordinates);
+            var playerMove = new PlayerMove(Symbol.Cross, coordinates);
+            game.PlayPiece(playerMove);
+            var actualOutput = game.PlayPiece(playerMove);
             var expectedOutput = false;
 
             Assert.Equal(expectedOutput, actualOutput);
