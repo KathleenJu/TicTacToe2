@@ -10,5 +10,15 @@
             Row = row;
             Column = column;
         }
+
+        public int GetRow()
+        {
+            return Row;
+        }
+
+        public int GetColumn()
+        {
+            return Column;
+        }
     }
 }

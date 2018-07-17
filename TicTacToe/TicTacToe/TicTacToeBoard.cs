@@ -7,7 +7,7 @@ namespace TicTacToe
 {
     public class TicTacToeBoard : IGameBoard
     {
-        private List<Coordinates> PlayedCoordinates; 
+        private readonly List<PlayedCoordinates> PlayedCoordinates; 
         private int BoardHeight;
         private int BoardWidth;
         private GameStatus GameStatus;
@@ -16,23 +16,23 @@ namespace TicTacToe
         {
             BoardHeight = boardHeight;
             BoardWidth = boardWidth;
-            PlayedCoordinates = new List<Coordinates>();
+            PlayedCoordinates = new List<PlayedCoordinates>();
             GameStatus = GameStatus.PLAYING;
         }
 
-        public bool PlayPiece(Coordinates coordinates)
+        public bool PlayPiece(PlayedCoordinates playedCoordinates)
         {
-            if (IsEmptyPosition(coordinates))
+            if (IsEmptyPosition(playedCoordinates))
             {
-                PlayedCoordinates.Add(coordinates);
+                PlayedCoordinates.Add(playedCoordinates);
                 return true;
             }
             return false;
         }
 
-        private bool IsEmptyPosition(Coordinates coordinates)
+        private bool IsEmptyPosition(PlayedCoordinates playerCoordinates)
         {
-            return !PlayedCoordinates.Contains(coordinates);
+            return !PlayedCoordinates.Contains(playerCoordinates);
         }
 
         public GameStatus GetGameStatus()
@@ -52,9 +52,9 @@ namespace TicTacToe
             return PlayedCoordinates.Count == 0;
         }
 
-        public List<Coordinates> GetPlayedCoordinates()
+        public List<PlayedCoordinates> GetPlayedCoordinates()
         {
             return PlayedCoordinates;
-        }
+        } 
     }
 }

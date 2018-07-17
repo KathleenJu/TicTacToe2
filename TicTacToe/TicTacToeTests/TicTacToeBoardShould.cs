@@ -18,27 +18,29 @@ namespace TicTacToeTests
 
             Assert.Equal(expectedOutput, actualOutput);
             Assert.Empty(game.GetPlayedCoordinates());
-        }
+        } 
         
         [Fact]
         public void PlayThePlayersTurnIfPositionIsNotTaken()
         {
             var game = new TicTacToeBoard(3, 3);
             var coordinates = new Coordinates(1,1);
-            var actualOutput = game.PlayPiece(coordinates);
+            var playedCoordinates = new PlayedCoordinates(Symbol.Cross, coordinates);
+            var actualOutput = game.PlayPiece(playedCoordinates);
             var expectedOutput = true;
 
             Assert.Equal(expectedOutput, actualOutput);
-            Assert.True(game.GetPlayedCoordinates().Contains(coordinates));
-        }
+            Assert.True(game.GetPlayedCoordinates().Contains(playedCoordinates));
+        } 
         
         [Fact]
         public void NotPlayThePlayersTurnIfPositionIsTaken() //not sure how to test this
         {
             var game = new TicTacToeBoard(3, 3);
             var coordinates = new Coordinates(1,1);
-            var firstPlayPiece = game.PlayPiece(coordinates);
-            var actualOutput = game.PlayPiece(coordinates);
+            var playedCoordinates = new PlayedCoordinates(Symbol.Cross, coordinates);
+            var firstPlayPiece = game.PlayPiece(playedCoordinates);
+            var actualOutput = game.PlayPiece(playedCoordinates);
             var expectedOutput = false;
 
             Assert.Equal(expectedOutput, actualOutput);

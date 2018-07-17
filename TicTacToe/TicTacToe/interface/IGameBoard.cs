@@ -5,7 +5,7 @@ namespace TicTacToe
 {
     public interface IGameBoard
     {
-        bool PlayPiece(Coordinates coordinates);
+        bool PlayPiece(PlayedCoordinates playedCoordinates);
         GameStatus GetGameStatus();
         void StartGame();
         bool ResetBoard();
