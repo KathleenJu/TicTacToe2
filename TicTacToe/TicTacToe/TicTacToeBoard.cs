@@ -8,11 +8,23 @@ namespace TicTacToe
 {
     public class TicTacToeBoard : Board
     {
+        public readonly List<List<Coordinates>> WinningLines = new List<List<Coordinates>>();
+
         public TicTacToeBoard(int boardHeight, int boardWidth) : base(boardHeight, boardWidth)
         {
         }
 
-//        public abstract bool HasWinner(); //will playermove but how to determine if no winner? , playermove class can have field IsWinningMove?
-        //board have currentPlayerSymbol field so when haswinner is true, then getcurrentplayersymbol can be called to get the winner's symbol
+        public List<Coordinates> HasWinner(PlayerMove playerMove)
+        {
+            var winningHorizontalLine = new List<Coordinates>();
+            for (var row = 1; row < BoardHeight + 1; row++)
+            {
+                WinningLines.Add(PlayedCoordinates.Select(move => move.GetCoordinates())
+                    .Where(coord => coord.GetRow() == row)
+                    .ToList());
+            }
+
+            return winningHorizontalLine;
+        }
     }
 }
