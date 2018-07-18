@@ -72,6 +72,19 @@ namespace TicTacToeTests
         }
 
         [Fact]
+        public void ReturnWinnerWhenThereIsAWinningPrimaryDiagonal()
+        {
+            var game = new TicTacToeBoard(3, 3);
+            game.PlayMove(new PlayerMove(Symbol.Cross, new Coordinates(0, 0)));
+            game.PlayMove(new PlayerMove(Symbol.Cross, new Coordinates(1, 1)));
+            var winningMove = new PlayerMove(Symbol.Cross, new Coordinates(2, 2));
+            game.PlayMove(winningMove);
+            var hasWinner = game.IsWinningMove(winningMove);
+
+            Assert.True(hasWinner);
+        }
+        
+        [Fact]
         public void ReturnWinnerWhenThereIsAWinningSecondaryDiagonal()
         {
             var game = new TicTacToeBoard(3, 3);
@@ -81,7 +94,7 @@ namespace TicTacToeTests
             game.PlayMove(winningMove);
             var hasWinner = game.IsWinningMove(winningMove);
 
-            Assert.True(hasWinner);
+            Assert.False(hasWinner);
         }
 
         [Fact]
@@ -97,17 +110,5 @@ namespace TicTacToeTests
             Assert.False(hasWinner);
         }
         
-        [Fact]
-        public void ReturnWinnerWhenThereIsAWinningPrimaryDiagonal()
-        {
-            var game = new TicTacToeBoard(3, 3);
-            game.PlayMove(new PlayerMove(Symbol.Cross, new Coordinates(0, 0)));
-            game.PlayMove(new PlayerMove(Symbol.Cross, new Coordinates(1, 1)));
-            var winningMove = new PlayerMove(Symbol.Cross, new Coordinates(2, 2));
-            game.PlayMove(winningMove);
-            var hasWinner = game.IsWinningMove(winningMove);
-
-            Assert.True(hasWinner);
-        }
     }
 }

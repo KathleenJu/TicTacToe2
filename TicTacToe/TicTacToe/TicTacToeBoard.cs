@@ -54,24 +54,14 @@ namespace TicTacToe
 
         private bool CheckForWinningPrimaryDiagonalLine(List<Coordinates> coordinates)
         {
-            var isWinningDiagonalLine = coordinates.Where(coord => coord.GetRow() == coord.GetColumn())
-                            .Distinct()
-                            .Count() == BoardHeight;
+            var isWinningDiagonalLine = coordinates.Where(coord => coord.GetRow() == coord.GetColumn()).Distinct().Count() == BoardHeight;
             return isWinningDiagonalLine;
         }
 
         private bool CheckForWinningSecondaryDiagonalLine(List<Coordinates> coordinates)
         {
-            var line = new List<Coordinates>();
-            for (var row = 0; row < BoardHeight; row++)
-            {
-                var column = BoardHeight - 1 - row;
-                line.Add(coordinates.FirstOrDefault(coord => coord.GetRow() == row && coord.GetColumn() == column));
-            }
-
-            var checkForWinningSecondaryDiagonalLine =
-                line.Where(coord => coord != null).Distinct().Count() == BoardHeight;
-            return checkForWinningSecondaryDiagonalLine;
+            var isWinningDiagonalLine = coordinates.Where(coord => coord.GetRow() + coord.GetColumn() == BoardHeight - 1).Distinct().Count() == BoardHeight;
+            return isWinningDiagonalLine;
         }
     }
 }
