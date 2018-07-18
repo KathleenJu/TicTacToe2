@@ -28,11 +28,16 @@ namespace TicTacToe
                                                  .Distinct()
                                                  .Count() == BoardHeight);
             }
-
-            hasWinningLine.Add(coordinates.Select(coord => coord)
-                                       .Where((coord, row) => (coord.GetRow() == row + 1 && coord.GetColumn() == BoardHeight) || (coord.GetRow() == 2 && coord.GetColumn() == 2) ||
-                                                              coord.GetRow() == 3 && coord.GetColumn() == 1).Count() == BoardHeight);
             
+            List<Coordinates> line = new List<Coordinates>();
+            for (int row = 0; row < BoardHeight + 1; row++)
+            {
+                var column = (BoardHeight + 1)- row;
+                row++;
+                line.Add(coordinates.FirstOrDefault(coord => coord.GetRow() == row && coord.GetColumn() == column));
+            }
+            hasWinningLine.Add(line.Count == BoardHeight);
+
             return hasWinningLine.Any(x => x);
         }
 
@@ -43,10 +48,8 @@ namespace TicTacToe
                 hasWinningLine.Add(coordinates.Where(coord => coord.GetRow() == row)
                                        .Distinct()
                                        .Count() == BoardHeight);
-                hasWinningLine.Add(coordinates.Where(coord => coord.GetColumn() == row)
-                                       .Distinct()
-                                       .Count() == BoardHeight);
-            } 
+            }
+            return true;
         }
     }
 }

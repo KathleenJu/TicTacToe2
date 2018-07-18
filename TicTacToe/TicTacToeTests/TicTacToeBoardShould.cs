@@ -72,5 +72,19 @@ namespace TicTacToeTests
 
             Assert.Equal(hasWinner, expectedOutput);
         }
+        
+        [Fact]
+        public void ReturnWinnerWhenThereIsAWinningSecondaryDiagonal()
+        {
+            var game = new TicTacToeBoard(3, 3);
+            game.PlayPiece(new PlayerMove(Symbol.Cross, new Coordinates(2, 2)));
+            game.PlayPiece(new PlayerMove(Symbol.Cross, new Coordinates(1, 3)));
+            var winningMove = new PlayerMove(Symbol.Cross, new Coordinates(3, 1));
+            game.PlayPiece(winningMove);
+            var hasWinner = game.HasWinner(winningMove);
+            var expectedOutput = true;
+
+            Assert.Equal(hasWinner, expectedOutput);
+        }
     }
 }
