@@ -14,17 +14,39 @@ namespace TicTacToe
         {
         }
 
-        public List<Coordinates> HasWinner(PlayerMove playerMove)
+        public bool HasWinner(PlayerMove playerMove)
         {
-            var winningHorizontalLine = new List<Coordinates>();
-            for (var row = 1; row < BoardHeight + 1; row++)
+            var coordinates = PlayedCoordinates.Where(move => move.Symbol == playerMove.Symbol)
+                .Select(move => move.GetCoordinates()).ToList();
+            var hasWinningLine = new List<bool>();
+            for (int row = 1; row < BoardHeight + 1; row++)
             {
-                WinningLines.Add(PlayedCoordinates.Select(move => move.GetCoordinates())
-                    .Where(coord => coord.GetRow() == row)
-                    .ToList());
+                hasWinningLine.Add(coordinates.Where(coord => coord.GetRow() == row)
+                                                 .Distinct()
+                                                 .Count() == BoardHeight);
+                hasWinningLine.Add(coordinates.Where(coord => coord.GetColumn() == row)
+                                                 .Distinct()
+                                                 .Count() == BoardHeight);
             }
 
-            return winningHorizontalLine;
+            hasWinningLine.Add(coordinates.Select(coord => coord)
+                                       .Where((coord, row) => (coord.GetRow() == row + 1 && coord.GetColumn() == BoardHeight) || (coord.GetRow() == 2 && coord.GetColumn() == 2) ||
+                                                              coord.GetRow() == 3 && coord.GetColumn() == 1).Count() == BoardHeight);
+            
+            return hasWinningLine.Any(x => x);
+        }
+
+        public bool CheckWinningRow(List<bool> hasWinningLine, List<Coordinates> coordinates)
+        {
+            for (int row = 1; row < BoardHeight + 1; row++)
+            {
+                hasWinningLine.Add(coordinates.Where(coord => coord.GetRow() == row)
+                                       .Distinct()
+                                       .Count() == BoardHeight);
+                hasWinningLine.Add(coordinates.Where(coord => coord.GetColumn() == row)
+                                       .Distinct()
+                                       .Count() == BoardHeight);
+            } 
         }
     }
 }

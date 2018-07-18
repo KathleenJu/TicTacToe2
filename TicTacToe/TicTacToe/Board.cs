@@ -9,7 +9,7 @@ namespace TicTacToe
     public class Board 
     {
         protected readonly List<PlayerMove> PlayedCoordinates;
-        protected int BoardHeight;
+        public int BoardHeight;
         protected int BoardWidth;
         protected readonly GameStatus GameStatus;
 
