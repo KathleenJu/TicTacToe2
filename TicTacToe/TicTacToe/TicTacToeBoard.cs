@@ -8,7 +8,6 @@ namespace TicTacToe
 {
     public class TicTacToeBoard : Board
     {
-        
         public TicTacToeBoard(int boardHeight, int boardWidth) : base(boardHeight, boardWidth)
         {
         }
@@ -18,10 +17,11 @@ namespace TicTacToe
             var coordinates = PlayerMoves.Where(move => move.Symbol == playerMove.Symbol)
                 .Select(move => move.GetCoordinates()).ToList();
             var hasWinningLine = new List<bool>();
-            
+
             hasWinningLine.Add(CheckForWinningRow(coordinates));
             hasWinningLine.Add(CheckForWinningColumn(coordinates));
             hasWinningLine.Add(CheckForWinningSecondaryDiagonalLine(coordinates));
+            hasWinningLine.Add(CheckForWinningPrimaryDiagonalLine(coordinates));
 
             return hasWinningLine.Any(x => x);
         }
@@ -32,41 +32,36 @@ namespace TicTacToe
             for (var row = 0; row < BoardHeight; row++)
             {
                 winningRow.Add(coordinates.Where(coord => coord.GetRow() == row)
-                                 .Distinct()
-                                 .Count() == BoardHeight);
+                                   .Distinct()
+                                   .Count() == BoardHeight);
             }
 
             return winningRow.Any(x => x);
         }
-        
+
         private bool CheckForWinningColumn(List<Coordinates> coordinates)
         {
             var winningColumn = new List<bool>();
             for (var column = 0; column < BoardHeight; column++)
             {
                 winningColumn.Add(coordinates.Where(coord => coord.GetColumn() == column)
-                                       .Distinct()
-                                       .Count() == BoardHeight);
+                                      .Distinct()
+                                      .Count() == BoardHeight);
             }
+
             return winningColumn.Any(x => x);
         }
 
         private bool CheckForWinningPrimaryDiagonalLine(List<Coordinates> coordinates)
         {
-//            var line = new List<bool>();
-//            for (var index = 0; index < BoardHeight; index++)
-//            {
-//                line.Add(coordinates.Where(coord => coord.GetRow() == index && coord.GetColumn() == index)
-//                                       .Distinct()
-//                                       .Count() == BoardHeight);
-//            }
-//            return line.Any(x => x);
-            
+            var isWinningDiagonalLine = coordinates.Where(coord => coord.GetRow() == coord.GetColumn())
+                            .Distinct()
+                            .Count() == BoardHeight;
+            return isWinningDiagonalLine;
         }
-        
+
         private bool CheckForWinningSecondaryDiagonalLine(List<Coordinates> coordinates)
         {
-            
             var line = new List<Coordinates>();
             for (var row = 0; row < BoardHeight; row++)
             {
@@ -74,9 +69,9 @@ namespace TicTacToe
                 line.Add(coordinates.FirstOrDefault(coord => coord.GetRow() == row && coord.GetColumn() == column));
             }
 
-            var checkForWinningSecondaryDiagonalLine = line.Where(coord => coord != null).Distinct().Count() == BoardHeight;
-            return checkForWinningSecondaryDiagonalLine; 
+            var checkForWinningSecondaryDiagonalLine =
+                line.Where(coord => coord != null).Distinct().Count() == BoardHeight;
+            return checkForWinningSecondaryDiagonalLine;
         }
-
     }
 }
