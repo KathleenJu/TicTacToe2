@@ -10,29 +10,27 @@ namespace TicTacToeTests
     public class TicTacToeBoardShould
     {
         [Fact]
-        public void PlayThePlayersTurnIfPositionIsNotTaken()
+        public void PlayThePlayersMoveIfPositionIsNotTaken()
         {
             var game = new TicTacToeBoard(3, 3);
-            var coordinates = new Coordinates(1, 1);
+            var coordinates = new Coordinates(0, 0);
             var playerMove = new PlayerMove(Symbol.Cross, coordinates);
-            var actualOutput = game.PlayPiece(playerMove);
-            var expectedOutput = true;
+            var actualOutput = game.PlayMove(playerMove);
 
-            Assert.Equal(expectedOutput, actualOutput);
-            Assert.True(game.GetPlayedCoordinates().Contains(playerMove));
+            Assert.True( actualOutput);
+            Assert.True(game.GetPlayerMoves().Contains(playerMove));
         }
 
         [Fact]
-        public void NotPlayThePlayersTurnIfPositionIsTaken() //not sure how to test this
+        public void NotPlayThePlayersMoveIfPositionIsTaken() //not sure how to test this
         {
             var game = new TicTacToeBoard(3, 3);
-            var coordinates = new Coordinates(1, 1);
-            game.PlayPiece(new PlayerMove(Symbol.Naught, coordinates));
+            var coordinates = new Coordinates(0, 0);
+            game.PlayMove(new PlayerMove(Symbol.Naught, coordinates));
             var playerMove = new PlayerMove(Symbol.Cross, coordinates);
-            var actualOutput = game.PlayPiece(playerMove);
-            var expectedOutput = false;
+            var actualOutput = game.PlayMove(playerMove);
 
-            Assert.Equal(expectedOutput, actualOutput);
+            Assert.False( actualOutput);
         }
 
         [Fact]
@@ -49,42 +47,67 @@ namespace TicTacToeTests
         public void ReturnWinnerWhenThereIsAWinningRow()
         {
             var game = new TicTacToeBoard(3, 3);
-            game.PlayPiece(new PlayerMove(Symbol.Cross, new Coordinates(1, 3)));
-            game.PlayPiece(new PlayerMove(Symbol.Cross, new Coordinates(1, 2)));
-            var winningMove = new PlayerMove(Symbol.Cross, new Coordinates(1, 1));
-            game.PlayPiece(winningMove);
-            var hasWinner = game.HasWinner(winningMove);
+            game.PlayMove(new PlayerMove(Symbol.Cross, new Coordinates(1, 2)));
+            game.PlayMove(new PlayerMove(Symbol.Cross, new Coordinates(1, 1)));
+            var winningMove = new PlayerMove(Symbol.Cross, new Coordinates(1, 0));
+            game.PlayMove(winningMove);
+            var hasWinner = game.IsWinningMove(winningMove);
             var expectedOutput = true;
 
-            Assert.Equal(hasWinner, expectedOutput);
+            Assert.True(hasWinner);
         }
-        
+
         [Fact]
         public void ReturnWinnerWhenThereIsAWinningColumn()
         {
             var game = new TicTacToeBoard(3, 3);
-            game.PlayPiece(new PlayerMove(Symbol.Cross, new Coordinates(2, 2)));
-            game.PlayPiece(new PlayerMove(Symbol.Cross, new Coordinates(1, 2)));
-            var winningMove = new PlayerMove(Symbol.Cross, new Coordinates(3, 2));
-            game.PlayPiece(winningMove);
-            var hasWinner = game.HasWinner(winningMove);
+            game.PlayMove(new PlayerMove(Symbol.Cross, new Coordinates(1, 2)));
+            game.PlayMove(new PlayerMove(Symbol.Cross, new Coordinates(0, 2)));
+            var winningMove = new PlayerMove(Symbol.Cross, new Coordinates(2, 2));
+            game.PlayMove(winningMove);
+            var hasWinner = game.IsWinningMove(winningMove);
             var expectedOutput = true;
 
-            Assert.Equal(hasWinner, expectedOutput);
+            Assert.True(hasWinner);
         }
-        
+
         [Fact]
         public void ReturnWinnerWhenThereIsAWinningSecondaryDiagonal()
         {
             var game = new TicTacToeBoard(3, 3);
-            game.PlayPiece(new PlayerMove(Symbol.Cross, new Coordinates(2, 2)));
-            game.PlayPiece(new PlayerMove(Symbol.Cross, new Coordinates(1, 3)));
-            var winningMove = new PlayerMove(Symbol.Cross, new Coordinates(3, 1));
-            game.PlayPiece(winningMove);
-            var hasWinner = game.HasWinner(winningMove);
-            var expectedOutput = true;
+            game.PlayMove(new PlayerMove(Symbol.Cross, new Coordinates(1, 1)));
+            game.PlayMove(new PlayerMove(Symbol.Cross, new Coordinates(0, 2)));
+            var winningMove = new PlayerMove(Symbol.Cross, new Coordinates(2, 0));
+            game.PlayMove(winningMove);
+            var hasWinner = game.IsWinningMove(winningMove);
 
-            Assert.Equal(hasWinner, expectedOutput);
+            Assert.True(hasWinner);
+        }
+
+        [Fact]
+        public void ReturnFalseWhenThereIsNoWinningLines()
+        {
+            var game = new TicTacToeBoard(3, 3);
+            game.PlayMove(new PlayerMove(Symbol.Cross, new Coordinates(1, 0)));
+            game.PlayMove(new PlayerMove(Symbol.Cross, new Coordinates(0, 2)));
+            var winningMove = new PlayerMove(Symbol.Cross, new Coordinates(2, 0));
+            game.PlayMove(winningMove);
+            var hasWinner = game.IsWinningMove(winningMove);
+
+            Assert.False(hasWinner);
+        }
+        
+        [Fact]
+        public void ReturnWinnerWhenThereIsAWinningPrimaryDiagonal()
+        {
+            var game = new TicTacToeBoard(3, 3);
+            game.PlayMove(new PlayerMove(Symbol.Cross, new Coordinates(0, 0)));
+            game.PlayMove(new PlayerMove(Symbol.Cross, new Coordinates(1, 1)));
+            var winningMove = new PlayerMove(Symbol.Cross, new Coordinates(2, 2));
+            game.PlayMove(winningMove);
+            var hasWinner = game.IsWinningMove(winningMove);
+
+            Assert.True(hasWinner);
         }
     }
 }

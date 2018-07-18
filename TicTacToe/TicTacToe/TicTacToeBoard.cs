@@ -8,48 +8,75 @@ namespace TicTacToe
 {
     public class TicTacToeBoard : Board
     {
-        public readonly List<List<Coordinates>> WinningLines = new List<List<Coordinates>>();
-
+        
         public TicTacToeBoard(int boardHeight, int boardWidth) : base(boardHeight, boardWidth)
         {
         }
 
-        public bool HasWinner(PlayerMove playerMove)
+        public override bool IsWinningMove(PlayerMove playerMove)
         {
-            var coordinates = PlayedCoordinates.Where(move => move.Symbol == playerMove.Symbol)
+            var coordinates = PlayerMoves.Where(move => move.Symbol == playerMove.Symbol)
                 .Select(move => move.GetCoordinates()).ToList();
             var hasWinningLine = new List<bool>();
-            for (int row = 1; row < BoardHeight + 1; row++)
-            {
-                hasWinningLine.Add(coordinates.Where(coord => coord.GetRow() == row)
-                                                 .Distinct()
-                                                 .Count() == BoardHeight);
-                hasWinningLine.Add(coordinates.Where(coord => coord.GetColumn() == row)
-                                                 .Distinct()
-                                                 .Count() == BoardHeight);
-            }
             
-            List<Coordinates> line = new List<Coordinates>();
-            for (int row = 0; row < BoardHeight + 1; row++)
-            {
-                var column = (BoardHeight + 1)- row;
-                row++;
-                line.Add(coordinates.FirstOrDefault(coord => coord.GetRow() == row && coord.GetColumn() == column));
-            }
-            hasWinningLine.Add(line.Count == BoardHeight);
+            hasWinningLine.Add(CheckForWinningRow(coordinates));
+            hasWinningLine.Add(CheckForWinningColumn(coordinates));
+            hasWinningLine.Add(CheckForWinningSecondaryDiagonalLine(coordinates));
 
             return hasWinningLine.Any(x => x);
         }
 
-        public bool CheckWinningRow(List<bool> hasWinningLine, List<Coordinates> coordinates)
+        private bool CheckForWinningRow(List<Coordinates> coordinates)
         {
-            for (int row = 1; row < BoardHeight + 1; row++)
+            var winningRow = new List<bool>();
+            for (var row = 0; row < BoardHeight; row++)
             {
-                hasWinningLine.Add(coordinates.Where(coord => coord.GetRow() == row)
+                winningRow.Add(coordinates.Where(coord => coord.GetRow() == row)
+                                 .Distinct()
+                                 .Count() == BoardHeight);
+            }
+
+            return winningRow.Any(x => x);
+        }
+        
+        private bool CheckForWinningColumn(List<Coordinates> coordinates)
+        {
+            var winningColumn = new List<bool>();
+            for (var column = 0; column < BoardHeight; column++)
+            {
+                winningColumn.Add(coordinates.Where(coord => coord.GetColumn() == column)
                                        .Distinct()
                                        .Count() == BoardHeight);
             }
-            return true;
+            return winningColumn.Any(x => x);
         }
+
+        private bool CheckForWinningPrimaryDiagonalLine(List<Coordinates> coordinates)
+        {
+//            var line = new List<bool>();
+//            for (var index = 0; index < BoardHeight; index++)
+//            {
+//                line.Add(coordinates.Where(coord => coord.GetRow() == index && coord.GetColumn() == index)
+//                                       .Distinct()
+//                                       .Count() == BoardHeight);
+//            }
+//            return line.Any(x => x);
+            
+        }
+        
+        private bool CheckForWinningSecondaryDiagonalLine(List<Coordinates> coordinates)
+        {
+            
+            var line = new List<Coordinates>();
+            for (var row = 0; row < BoardHeight; row++)
+            {
+                var column = BoardHeight - 1 - row;
+                line.Add(coordinates.FirstOrDefault(coord => coord.GetRow() == row && coord.GetColumn() == column));
+            }
+
+            var checkForWinningSecondaryDiagonalLine = line.Where(coord => coord != null).Distinct().Count() == BoardHeight;
+            return checkForWinningSecondaryDiagonalLine; 
+        }
+
     }
 }

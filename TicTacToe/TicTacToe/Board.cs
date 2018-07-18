@@ -6,26 +6,26 @@ using TicTacToe.Enum;
 
 namespace TicTacToe
 {
-    public class Board 
+    public abstract class Board 
     {
-        protected readonly List<PlayerMove> PlayedCoordinates;
+        protected readonly List<PlayerMove> PlayerMoves;
         public int BoardHeight;
         protected int BoardWidth;
         protected readonly GameStatus GameStatus;
 
-        public Board(int boardHeight, int boardWidth)
+        protected Board(int boardHeight, int boardWidth)
         {
             BoardHeight = boardHeight;
             BoardWidth = boardWidth;
-            PlayedCoordinates = new List<PlayerMove>();
+            PlayerMoves = new List<PlayerMove>();
             GameStatus = GameStatus.PLAYING;
         }
 
-        public bool PlayPiece(PlayerMove playerMove)
+        public bool PlayMove(PlayerMove playerMove)
         {
             if (IsEmptyPosition(playerMove))
             {
-                PlayedCoordinates.Add(playerMove);
+                PlayerMoves.Add(playerMove);
                 return true;
             }
             return false;
@@ -33,7 +33,7 @@ namespace TicTacToe
 
         private bool IsEmptyPosition(PlayerMove playerMove)
         {
-            return !PlayedCoordinates.Any(x => x.GetCoordinates() == playerMove.GetCoordinates());
+            return !PlayerMoves.Any(x => x.GetCoordinates() == playerMove.GetCoordinates());
         }
 
         public GameStatus GetGameStatus()
@@ -41,9 +41,11 @@ namespace TicTacToe
             return GameStatus;
         }
 
-        public List<PlayerMove> GetPlayedCoordinates()
+        public List<PlayerMove> GetPlayerMoves()
         {
-            return PlayedCoordinates;
+            return PlayerMoves;
         }
+
+        public abstract bool IsWinningMove(PlayerMove playerMove);
     }
 }
