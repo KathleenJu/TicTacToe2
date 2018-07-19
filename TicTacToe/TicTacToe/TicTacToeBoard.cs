@@ -28,15 +28,8 @@ namespace TicTacToe
 
         private bool CheckForWinningRow(List<Coordinates> coordinates)
         {
-            var winningRow = new List<bool>();
-            for (var row = 0; row < BoardHeight; row++)
-            {
-                winningRow.Add(coordinates.Where(coord => coord.GetRow() == row)
-                                   .Distinct()
-                                   .Count() == BoardHeight);
-            }
-
-            return winningRow.Any(x => x);
+            var isWinningRow = coordinates.GroupBy(coord => coord.GetRow()).Select(rows => rows.Count()).FirstOrDefault(count => count == BoardHeight) == BoardHeight;
+            return isWinningRow;
         }
 
         private bool CheckForWinningColumn(List<Coordinates> coordinates)
