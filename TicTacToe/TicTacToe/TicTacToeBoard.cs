@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Collections.Generic;
 using System.Linq;
-using TicTacToe.Enum;
 
 namespace TicTacToe
 {
@@ -14,7 +11,7 @@ namespace TicTacToe
 
         public override bool IsWinningMove(PlayerMove playerMove)
         {
-            var coordinates = PlayerMoves.Where(move => move.Symbol == playerMove.Symbol)
+            var coordinates = PlayerMoves.Where(move => move.GetSymbol() == playerMove.GetSymbol())
                 .Select(move => move.GetCoordinates())
                 .ToList();
             var hasWinningLine = new List<bool>

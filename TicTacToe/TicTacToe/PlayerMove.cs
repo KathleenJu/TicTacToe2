@@ -4,9 +4,8 @@ namespace TicTacToe
 {
     public class PlayerMove //state?, 
     {
-        public readonly Symbol Symbol;
+        private readonly Symbol Symbol;
         private readonly Coordinates Coordinates;
-        public bool IsWinningMove { get; set; }
 
         public PlayerMove(Symbol symbol, Coordinates coordinates)
         {
@@ -17,6 +16,11 @@ namespace TicTacToe
         public Coordinates GetCoordinates()
         {
             return Coordinates;
+        }
+
+        public Symbol GetSymbol()
+        {
+            return Symbol;
         }
     }
 }
