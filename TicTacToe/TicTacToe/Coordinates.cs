@@ -2,23 +2,13 @@
 {
     public class Coordinates
     {
-        private int Row;
-        private int Column;
+        public int Row { get; }
+        public int Column { get; }
 
         public Coordinates(int row, int column)
         {
             Row = row;
             Column = column;
-        }
-
-        public int GetRow()
-        {
-            return Row;
-        }
-
-        public int GetColumn()
-        {
-            return Column;
         }
     }
 }

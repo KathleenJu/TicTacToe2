@@ -2,25 +2,15 @@
 
 namespace TicTacToe
 {
-    public class PlayerMove //state?, 
+    public class PlayerMove 
     {
-        private readonly Symbol Symbol;
-        private readonly Coordinates Coordinates;
+        public Symbol Symbol { get; }
+        public Coordinates Coordinates { get; }
 
         public PlayerMove(Symbol symbol, Coordinates coordinates)
         {
             Symbol = symbol;
             Coordinates = coordinates;
-        }
-
-        public Coordinates GetCoordinates()
-        {
-            return Coordinates;
-        }
-
-        public Symbol GetSymbol()
-        {
-            return Symbol;
         }
     }
 }
