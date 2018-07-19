@@ -17,7 +17,7 @@ namespace TicTacToeTests
             var playerMove = new PlayerMove(Symbol.Cross, coordinates);
             var actualOutput = game.PlayMove(playerMove);
 
-            Assert.True( actualOutput);
+            Assert.True(actualOutput);
             Assert.True(game.GetPlayerMoves().Contains(playerMove));
         }
 
@@ -30,7 +30,7 @@ namespace TicTacToeTests
             var playerMove = new PlayerMove(Symbol.Cross, coordinates);
             var actualOutput = game.PlayMove(playerMove);
 
-            Assert.False( actualOutput);
+            Assert.False(actualOutput);
         }
 
         [Fact]
@@ -51,9 +51,8 @@ namespace TicTacToeTests
             game.PlayMove(new PlayerMove(Symbol.Cross, new Coordinates(2, 0)));
             game.PlayMove(new PlayerMove(Symbol.Cross, new Coordinates(2, 2)));
             game.PlayMove(new PlayerMove(Symbol.Cross, new Coordinates(2, 1)));
-            var winningMove = new PlayerMove(Symbol.Cross, new Coordinates(1, 0));
-            game.PlayMove(winningMove);
-            var hasWinner = game.IsWinningMove(winningMove);
+            game.PlayMove(new PlayerMove(Symbol.Cross, new Coordinates(1, 0)));
+            var hasWinner = game.IsGameOver();
 
             Assert.True(hasWinner);
         }
@@ -65,9 +64,8 @@ namespace TicTacToeTests
             game.PlayMove(new PlayerMove(Symbol.Cross, new Coordinates(0, 1)));
             game.PlayMove(new PlayerMove(Symbol.Cross, new Coordinates(1, 2)));
             game.PlayMove(new PlayerMove(Symbol.Cross, new Coordinates(0, 2)));
-            var winningMove = new PlayerMove(Symbol.Cross, new Coordinates(2, 2));
-            game.PlayMove(winningMove);
-            var hasWinner = game.IsWinningMove(winningMove);
+            game.PlayMove(new PlayerMove(Symbol.Cross, new Coordinates(2, 2)));
+            var hasWinner = game.IsGameOver();
 
             Assert.True(hasWinner);
         }
@@ -78,22 +76,20 @@ namespace TicTacToeTests
             var game = new TicTacToeBoard(3, 3);
             game.PlayMove(new PlayerMove(Symbol.Cross, new Coordinates(0, 0)));
             game.PlayMove(new PlayerMove(Symbol.Cross, new Coordinates(1, 1)));
-            var winningMove = new PlayerMove(Symbol.Cross, new Coordinates(2, 2));
-            game.PlayMove(winningMove);
-            var hasWinner = game.IsWinningMove(winningMove);
+            game.PlayMove(new PlayerMove(Symbol.Cross, new Coordinates(2, 2)));
+            var hasWinner = game.IsGameOver();
 
             Assert.True(hasWinner);
         }
-        
+
         [Fact]
         public void ReturnWinnerWhenThereIsAWinningSecondaryDiagonal()
         {
             var game = new TicTacToeBoard(3, 3);
             game.PlayMove(new PlayerMove(Symbol.Cross, new Coordinates(1, 1)));
             game.PlayMove(new PlayerMove(Symbol.Cross, new Coordinates(0, 2)));
-            var winningMove = new PlayerMove(Symbol.Cross, new Coordinates(2, 0));
-            game.PlayMove(winningMove);
-            var hasWinner = game.IsWinningMove(winningMove);
+            game.PlayMove(new PlayerMove(Symbol.Cross, new Coordinates(2, 0)));
+            var hasWinner = game.IsGameOver();
 
             Assert.True(hasWinner);
         }
@@ -104,12 +100,22 @@ namespace TicTacToeTests
             var game = new TicTacToeBoard(3, 3);
             game.PlayMove(new PlayerMove(Symbol.Cross, new Coordinates(1, 0)));
             game.PlayMove(new PlayerMove(Symbol.Cross, new Coordinates(0, 2)));
-            var winningMove = new PlayerMove(Symbol.Cross, new Coordinates(2, 0));
-            game.PlayMove(winningMove);
-            var hasWinner = game.IsWinningMove(winningMove);
+            game.PlayMove(new PlayerMove(Symbol.Cross, new Coordinates(2, 0)));
+            var hasWinner = game.IsGameOver();
 
             Assert.False(hasWinner);
         }
-        
+
+        [Fact]
+        public void ReturnDrawWhenGameIsOverAndNoWinner()
+        {
+            var game = new TicTacToeBoard(3, 3);
+            game.PlayMove(new PlayerMove(Symbol.Cross, new Coordinates(0, 0)));
+            game.PlayMove(new PlayerMove(Symbol.Cross, new Coordinates(0, 2)));
+            game.PlayMove(new PlayerMove(Symbol.Cross, new Coordinates(2, 0)));
+            var gameOver = game.IsGameOver();
+
+            Assert.False(gameOver);
+        }
     }
 }

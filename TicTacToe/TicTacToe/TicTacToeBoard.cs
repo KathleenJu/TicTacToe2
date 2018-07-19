@@ -9,11 +9,13 @@ namespace TicTacToe
         {
         }
 
-        public override bool IsWinningMove(PlayerMove playerMove)
+        public override bool HasWinner()
         {
-            var coordinates = PlayerMoves.Where(move => move.GetSymbol() == playerMove.GetSymbol())
+            var lastPlayedSymbol = PlayedMoves.Last().GetSymbol();
+            var coordinates = PlayedMoves.Where(move => move.GetSymbol() == lastPlayedSymbol)
                 .Select(move => move.GetCoordinates())
                 .ToList();
+            
             var hasWinningLine = new List<bool>
             {
                 CheckForWinningRow(coordinates),
@@ -21,7 +23,6 @@ namespace TicTacToe
                 CheckForWinningSecondaryDiagonalLine(coordinates),
                 CheckForWinningPrimaryDiagonalLine(coordinates)
             };
-
             return hasWinningLine.Contains(true);
         }
 
