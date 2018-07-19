@@ -66,14 +66,19 @@ namespace TicTacToe
                 return true;
             }
 
-            var draw = IsDrawGame();
-            return draw;
+            var isDrawGame = IsDrawGame();
+            return isDrawGame;
         }
 
         private bool IsDrawGame()
         {
-            GameStatus = GameStatus.OVER;
-            throw new NotImplementedException();
+            var fullBoard = PlayedMoves.Count == BoardHeight * BoardHeight;
+            if (fullBoard)
+            {
+                GameStatus = GameStatus.OVER;
+                return true;
+            }
+            return false;
         }
 
         public abstract bool HasWinner();
