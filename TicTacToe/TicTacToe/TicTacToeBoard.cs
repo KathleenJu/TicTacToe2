@@ -15,34 +15,29 @@ namespace TicTacToe
         public override bool IsWinningMove(PlayerMove playerMove)
         {
             var coordinates = PlayerMoves.Where(move => move.Symbol == playerMove.Symbol)
-                .Select(move => move.GetCoordinates()).ToList();
-            var hasWinningLine = new List<bool>();
+                .Select(move => move.GetCoordinates())
+                .ToList();
+            var hasWinningLine = new List<bool>
+            {
+                CheckForWinningRow(coordinates),
+                CheckForWinningColumn(coordinates),
+                CheckForWinningSecondaryDiagonalLine(coordinates),
+                CheckForWinningPrimaryDiagonalLine(coordinates)
+            };
 
-            hasWinningLine.Add(CheckForWinningRow(coordinates));
-            hasWinningLine.Add(CheckForWinningColumn(coordinates));
-            hasWinningLine.Add(CheckForWinningSecondaryDiagonalLine(coordinates));
-            hasWinningLine.Add(CheckForWinningPrimaryDiagonalLine(coordinates));
-
-            return hasWinningLine.Any(x => x);
+            return hasWinningLine.Contains(true);
         }
 
         private bool CheckForWinningRow(List<Coordinates> coordinates)
         {
-            var isWinningRow = coordinates.GroupBy(coord => coord.GetRow()).Select(rows => rows.Count()).FirstOrDefault(count => count == BoardHeight) == BoardHeight;
+            var isWinningRow = coordinates.GroupBy(coord => coord.GetRow()).Select(rows => rows.Count()).Any(count => count == BoardHeight);
             return isWinningRow;
         }
 
         private bool CheckForWinningColumn(List<Coordinates> coordinates)
         {
-            var winningColumn = new List<bool>();
-            for (var column = 0; column < BoardHeight; column++)
-            {
-                winningColumn.Add(coordinates.Where(coord => coord.GetColumn() == column)
-                                      .Distinct()
-                                      .Count() == BoardHeight);
-            }
-
-            return winningColumn.Any(x => x);
+            var isWinningColumn = coordinates.GroupBy(coord => coord.GetColumn()).Select(columns => columns.Count()).Any(count => count == BoardHeight);
+            return  isWinningColumn;
         }
 
         private bool CheckForWinningPrimaryDiagonalLine(List<Coordinates> coordinates)

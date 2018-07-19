@@ -47,9 +47,9 @@ namespace TicTacToeTests
         public void ReturnWinnerWhenThereIsAWinningRow()
         {
             var game = new TicTacToeBoard(3, 3);
-            game.PlayMove(new PlayerMove(Symbol.Cross, new Coordinates(2, 2)));
+            game.PlayMove(new PlayerMove(Symbol.Cross, new Coordinates(0, 1)));
             game.PlayMove(new PlayerMove(Symbol.Cross, new Coordinates(2, 0)));
-            game.PlayMove(new PlayerMove(Symbol.Cross, new Coordinates(1, 2)));
+            game.PlayMove(new PlayerMove(Symbol.Cross, new Coordinates(2, 2)));
             game.PlayMove(new PlayerMove(Symbol.Cross, new Coordinates(2, 1)));
             var winningMove = new PlayerMove(Symbol.Cross, new Coordinates(1, 0));
             game.PlayMove(winningMove);
@@ -62,6 +62,7 @@ namespace TicTacToeTests
         public void ReturnWinnerWhenThereIsAWinningColumn()
         {
             var game = new TicTacToeBoard(3, 3);
+            game.PlayMove(new PlayerMove(Symbol.Cross, new Coordinates(0, 1)));
             game.PlayMove(new PlayerMove(Symbol.Cross, new Coordinates(1, 2)));
             game.PlayMove(new PlayerMove(Symbol.Cross, new Coordinates(0, 2)));
             var winningMove = new PlayerMove(Symbol.Cross, new Coordinates(2, 2));
