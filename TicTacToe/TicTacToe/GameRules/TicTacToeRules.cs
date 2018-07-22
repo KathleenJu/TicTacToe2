@@ -8,11 +8,7 @@ namespace TicTacToe
     public class TicTacToeRules : IGameRules
     {
         private readonly int NumberOfSymbolsInALineToWin = 3;
-        
-        public TicTacToeRules()
-        {
-        } 
-        
+
         public bool HasWinner(TicTacToeBoard board)
         {
             var playedMoves = board.PlayedMoves;
@@ -54,38 +50,5 @@ namespace TicTacToe
             var isWinningDiagonalLine = coordinates.Where(coord => coord.Row + coord.Column == NumberOfSymbolsInALineToWin - 1).Distinct().Count() == NumberOfSymbolsInALineToWin;
             return isWinningDiagonalLine;
         }
-        
-//        public Symbol? GetWinner()
-//        {
-//            if (HasWinner())
-//            {
-//                var lastPlayedSymbol = PlayedMoves.Last().Symbol;
-//                return lastPlayedSymbol;
-//            }
-//            return null;
-//        }
-//
-//        public bool IsGameOver()
-//        {
-//            if (GetWinner() != null)
-//            {
-////                GameStatus = GameStatus.OVER;
-//                return true;
-//            }
-//            var isDrawGame = IsDrawGame();
-//            return isDrawGame;
-//        }
-//
-//        private bool IsDrawGame()
-//        {
-//            var fullBoard = PlayedMoves.Count == BoardSize * BoardSize;
-//            if (fullBoard)
-//            {
-////                GameStatus = GameStatus.OVER;
-//                return true;
-//            }
-//            return false;
-//        }
-
     }
 }

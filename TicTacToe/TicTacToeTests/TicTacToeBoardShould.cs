@@ -35,7 +35,7 @@ namespace TicTacToeTests
         {
             var game = new TicTacToeBoard(3);
             var coordinates = new Coordinates(0, 0);
-            game.PlayMove(new PlayerMove(Symbol.Naught, coordinates));
+            game.PlayMove(new PlayerMove(Symbol.Nought, coordinates));
             var playerMove = new PlayerMove(Symbol.Cross, coordinates);
             var actualOutput = game.PlayMove(playerMove);
 

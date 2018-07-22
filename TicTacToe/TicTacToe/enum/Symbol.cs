@@ -3,6 +3,6 @@
     public enum Symbol
     {
         Cross = 'X',
-        Naught = 'O'
+        Nought = 'O'
     }
 }
