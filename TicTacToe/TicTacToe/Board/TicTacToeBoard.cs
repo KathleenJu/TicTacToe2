@@ -16,7 +16,7 @@ namespace TicTacToe
 
         public bool PlayMove(PlayerMove playerMove)
         {
-            if (IsEmptyPosition(playerMove) && IsValidCoordinate(playerMove.Coordinates))
+            if (IsEmptyPosition(playerMove.Coordinates) && IsValidCoordinate(playerMove.Coordinates))
             {
                 PlayedMoves.Add(playerMove);
                 return true;
@@ -24,9 +24,9 @@ namespace TicTacToe
             return false;
         }
 
-        private bool IsEmptyPosition(PlayerMove playerMove)
+        private bool IsEmptyPosition(Coordinates coordinates)
         {
-            return !PlayedMoves.Any(move => move.Coordinates == playerMove.Coordinates);
+            return !PlayedMoves.Any(move => move.Coordinates == coordinates);
         }
 
         private bool IsValidCoordinate(Coordinates coordinates)
