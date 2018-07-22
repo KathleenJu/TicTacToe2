@@ -9,6 +9,5 @@ namespace TicTacToe
     interface IBoard
     {
         bool PlayMove(PlayerMove playerMove);
-//        bool IsEmptyPosition(PlayerMove playerMove);
     }
 }

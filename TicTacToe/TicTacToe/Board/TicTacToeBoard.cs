@@ -16,18 +16,23 @@ namespace TicTacToe
 
         public bool PlayMove(PlayerMove playerMove)
         {
-            if (IsEmptyPosition(playerMove))
+            if (IsEmptyPosition(playerMove) && IsValidCoordinate(playerMove.Coordinates))
             {
                 PlayedMoves.Add(playerMove);
                 return true;
             }
-
             return false;
         }
 
         private bool IsEmptyPosition(PlayerMove playerMove)
         {
             return !PlayedMoves.Any(move => move.Coordinates == playerMove.Coordinates);
+        }
+
+        private bool IsValidCoordinate(Coordinates coordinates)
+        {
+            return Enumerable.Range(0, BoardSize).Contains(coordinates.Row) &&
+                   Enumerable.Range(0, BoardSize).Contains(coordinates.Column);
         }
     }
 }

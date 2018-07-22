@@ -16,7 +16,7 @@ namespace TicTacToeTests
             board.PlayMove(new PlayerMove(Symbol.Cross, new Coordinates(2, 1)));
             board.PlayMove(new PlayerMove(Symbol.Cross, new Coordinates(1, 0)));
             var rules = new TicTacToeRules();
-            var hasWinner = rules.HasWinner();
+            var hasWinner = rules.HasWinner(board);
 
             Assert.True(hasWinner);
         }
@@ -30,7 +30,7 @@ namespace TicTacToeTests
             board.PlayMove(new PlayerMove(Symbol.Cross, new Coordinates(0, 2)));
             board.PlayMove(new PlayerMove(Symbol.Cross, new Coordinates(2, 2)));
             var rules = new TicTacToeRules();
-            var hasWinner = rules.HasWinner();
+            var hasWinner = rules.HasWinner(board);
 
             Assert.True(hasWinner);
         }
@@ -43,7 +43,7 @@ namespace TicTacToeTests
             board.PlayMove(new PlayerMove(Symbol.Cross, new Coordinates(1, 1)));
             board.PlayMove(new PlayerMove(Symbol.Cross, new Coordinates(2, 2)));
             var rules = new TicTacToeRules();
-            var hasWinner = rules.HasWinner();
+            var hasWinner = rules.HasWinner(board);
 
             Assert.True(hasWinner);
         }
@@ -56,7 +56,7 @@ namespace TicTacToeTests
             board.PlayMove(new PlayerMove(Symbol.Cross, new Coordinates(0, 2)));
             board.PlayMove(new PlayerMove(Symbol.Cross, new Coordinates(2, 0)));
             var rules = new TicTacToeRules();
-            var hasWinner = rules.HasWinner();
+            var hasWinner = rules.HasWinner(board);
 
             Assert.True(hasWinner);
         }
@@ -69,7 +69,7 @@ namespace TicTacToeTests
             board.PlayMove(new PlayerMove(Symbol.Cross, new Coordinates(0, 2)));
             board.PlayMove(new PlayerMove(Symbol.Cross, new Coordinates(2, 0)));
             var rules = new TicTacToeRules();
-            var gameOver = rules.HasWinner();
+            var gameOver = rules.HasWinner(board);
 
             Assert.False(gameOver);
         }
@@ -88,7 +88,7 @@ namespace TicTacToeTests
             board.PlayMove(new PlayerMove(Symbol.Cross, new Coordinates(2, 1)));
             board.PlayMove(new PlayerMove(Symbol.Naught, new Coordinates(2, 02)));
             var rules = new TicTacToeRules();
-            var gameOver = rules.HasWinner();
+            var gameOver = rules.HasWinner(board);
 
             Assert.True(gameOver);
         }
