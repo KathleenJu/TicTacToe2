@@ -12,9 +12,9 @@ namespace TicTacToe
             var board = new TicTacToeBoard(3);
             var rules = new TicTacToeRules();
             var renderer = new ConsoleRenderer();
-            var game = new TicTacToeConsoleGame(board, rules, renderer);
+            var game = new ConsoleGame(board, rules, renderer);
             
-            game.StartGame();
+            game.StartGame(message);
         } 
     }
 }

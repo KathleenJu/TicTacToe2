@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using TicTacToe.Enum;
 using TicTacToe.GameRules;
 
@@ -17,9 +18,14 @@ namespace TicTacToe
             GameStatus = GameStatus.PLAYING;
         }
 
-        public void PlayMove(PlayerMove playerMove)
+        public bool PlayMove(PlayerMove playerMove)
         {
-            GameBoard.UpdateBoard(playerMove);
+            if (GameRules.CheckPlayMovePosition(playerMove, GameBoard))
+            {
+                GameBoard.UpdateBoard(playerMove);
+                return true;
+            }
+            return false;
         }
 
         public Symbol? GetWinner()
@@ -57,7 +63,7 @@ namespace TicTacToe
             return false;
         }
 
-        public abstract void StartGame();
+        public abstract void StartGame(string welcomeMessage);
 
         public abstract PlayerMove GetPlayerMove();
     }

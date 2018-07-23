@@ -10,7 +10,7 @@ namespace TicTacToeTests
         public void ReturnGameOverWhenThereIsAWinner()
         {
             var board = new TicTacToeBoard(3);
-            var game = new TicTacToeConsoleGame(board, new TicTacToeRules());
+            var game = new ConsoleGame(board, new TicTacToeRules());
             game.PlayMove(new PlayerMove(Symbol.Cross, new Coordinates(1, 1)));
             game.PlayMove(new PlayerMove(Symbol.Cross, new Coordinates(0, 2)));
             game.PlayMove(new PlayerMove(Symbol.Cross, new Coordinates(2, 0)));
@@ -23,7 +23,7 @@ namespace TicTacToeTests
         public void ReturnDrawWhenBoardIsFullAndThereIsNoWinner()
         {
             var board = new TicTacToeBoard(3);
-            var game = new TicTacToeConsoleGame(board, new TicTacToeRules());
+            var game = new ConsoleGame(board, new TicTacToeRules());
             game.PlayMove(new PlayerMove(Symbol.Cross, new Coordinates(0, 0)));
             game.PlayMove(new PlayerMove(Symbol.Nought, new Coordinates(0, 1)));
             game.PlayMove(new PlayerMove(Symbol.Cross, new Coordinates(0, 2)));
@@ -43,7 +43,7 @@ namespace TicTacToeTests
         public void ReturnTheCorrectWinnerOfTheGame()
         {
             var board = new TicTacToeBoard(3);
-            var game = new TicTacToeConsoleGame(board, new TicTacToeRules());
+            var game = new ConsoleGame(board, new TicTacToeRules());
             game.PlayMove(new PlayerMove(Symbol.Cross, new Coordinates(1, 1)));
             game.PlayMove(new PlayerMove(Symbol.Nought, new Coordinates(1, 0)));
             game.PlayMove(new PlayerMove(Symbol.Nought, new Coordinates(2, 1)));

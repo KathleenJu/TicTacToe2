@@ -26,6 +26,15 @@ namespace TicTacToe
             return hasWinningLine.Contains(true);
         }
 
+        public bool CheckPlayMovePosition(PlayerMove playerMove, Board board)
+        {
+            if (board.IsEmptyPosition(playerMove.Coordinates) && board.IsValidCoordinate(playerMove.Coordinates))
+            {
+                return true;
+            }
+            return false;
+        }
+
         private bool CheckForWinningRow(List<Coordinates> coordinates)
         {
             var isWinningRow = coordinates.GroupBy(coord => coord.Row).Select(rows => rows.Count()).Any(count => count == NumberOfSymbolsInALineToWin);

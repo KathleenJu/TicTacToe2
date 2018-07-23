@@ -7,28 +7,28 @@ using TicTacToe.GameRules;
 
 namespace TicTacToe
 {
-    public class TicTacToeConsoleGame : Game
+    public class ConsoleGame : Game
     {
         private readonly ConsoleRenderer ConsoleRenderer;
         
-        public TicTacToeConsoleGame(Board gameBoard, IGameRules gameRules, ConsoleRenderer consoleRenderer) : base(gameBoard, gameRules)
+        public ConsoleGame(Board gameBoard, IGameRules gameRules, ConsoleRenderer consoleRenderer) : base(gameBoard, gameRules)
         {
             ConsoleRenderer = consoleRenderer;
         }
 
-        public override void StartGame()
+        public override void StartGame(string welcomeMessage)
         {
-            ConsoleRenderer.RenderWelcomeMessage();
+            ConsoleRenderer.RenderMessage(welcomeMessage);
             ConsoleRenderer.RenderGameBoard(GameBoard);
            
             while (GameStatus != GameStatus.OVER)
             {
-                var move = GetPlayerMove();
-                PlayMove(move);
-                if (IsGameOver())
-                {
-                    GetWinner();
-                }
+//                var move = GetPlayerMove();
+//                PlayMove(move);
+//                if (IsGameOver())
+//                {
+//                    GetWinner();
+//                }
             }
         }
 
@@ -37,19 +37,7 @@ namespace TicTacToe
             ConsoleRenderer.RenderMessage("Player {0} enter a coord x,y to place your {1} or enter 'q' to give up: ");
             var quitGame = "q";
             var playerInput = Console.ReadLine();
-            if (playerInput == quitGame)
-            {
-//                EndGame(); //set status to over
-            }
-            if (InputAValidCoord(playerInput))
-            {
-                var coord = playerInput.Split(',').Select(x => new Coordinates(Int32.Parse(x), Int32.Parse(x))).First();
-                return new PlayerMove(Symbol.Cross, coord);
-            }
-//            else
-//            {
-//                throw Exception;
-//            }
+           
         }
         
         private static bool InputAValidCoord(string input)
