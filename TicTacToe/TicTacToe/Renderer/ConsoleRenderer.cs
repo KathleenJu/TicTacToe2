@@ -1,21 +1,28 @@
-﻿using TicTacToe.Enum;
+﻿using System;
+using TicTacToe.Enum;
 
 namespace TicTacToe
 {
-    public class ConsoleGame
+    public class ConsoleRenderer: IRenderer
     {
-//        public void StartGame()
-//        {
-//            var board = new TicTacToeBoard(3);
-//            var rules = new TicTacToeRules();
-//            var game = new TicTacToeGame(board, rules);
-//
-//            while (game.GameStatus != GameStatus.OVER )
-//            {
-//                game.PlayMove();
-//                var gameOver = game.IsGameOver();
-//            }
-//        }
-        
+        public void RenderWelcomeMessage()
+        {
+            Console.WriteLine("Welcome to Tic Tac Toe! \nHere's the current board:\n");
+        }
+
+        public void RenderMessage(string message)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RenderGameBoard(Board board)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RenderWinner()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
