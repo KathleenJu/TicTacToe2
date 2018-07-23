@@ -24,7 +24,7 @@ namespace TicTacToeTests
             var game = new TicTacToeBoard(3);
             var coordinates = new Coordinates(row, column);
             var playerMove = new PlayerMove(Symbol.Cross, coordinates);
-            var actualOutput = game.PlayMove(playerMove);
+            var actualOutput = game.UpdateBoard(playerMove);
 
             Assert.True(actualOutput);
             Assert.True(game.PlayedMoves.Contains(playerMove));
@@ -35,9 +35,9 @@ namespace TicTacToeTests
         {
             var game = new TicTacToeBoard(3);
             var coordinates = new Coordinates(0, 0);
-            game.PlayMove(new PlayerMove(Symbol.Nought, coordinates));
+            game.UpdateBoard(new PlayerMove(Symbol.Nought, coordinates));
             var playerMove = new PlayerMove(Symbol.Cross, coordinates);
-            var actualOutput = game.PlayMove(playerMove);
+            var actualOutput = game.UpdateBoard(playerMove);
 
             Assert.False(actualOutput);
         }
@@ -55,7 +55,7 @@ namespace TicTacToeTests
             var game = new TicTacToeBoard(3);
             var coordinates = new Coordinates(row, column);
             var playerMove = new PlayerMove(Symbol.Cross, coordinates);
-            var actualOutput = game.PlayMove(playerMove);
+            var actualOutput = game.UpdateBoard(playerMove);
 
             Assert.False(actualOutput);
         }

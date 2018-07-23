@@ -3,19 +3,14 @@ using System.Linq;
 
 namespace TicTacToe
 {
-    public class TicTacToeBoard : IBoard
+    public class TicTacToeBoard : Board
     {
-        public int BoardSize { get; }
-        public List<PlayerMove> PlayedMoves { get; }
-        
-        public TicTacToeBoard(int boardSize)
+        public TicTacToeBoard(int boardSize) : base(boardSize)
         {
-            BoardSize = boardSize;
-            PlayedMoves = new List<PlayerMove>();
         }
 
-        public bool PlayMove(PlayerMove playerMove)
-        {
+        public override bool UpdateBoard(PlayerMove playerMove) //UpdatePlayedMoves?
+        { 
             if (IsEmptyPosition(playerMove.Coordinates) && IsValidCoordinate(playerMove.Coordinates))
             {
                 PlayedMoves.Add(playerMove);

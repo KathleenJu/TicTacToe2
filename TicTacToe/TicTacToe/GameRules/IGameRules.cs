@@ -1,7 +1,7 @@
 ﻿namespace TicTacToe.GameRules
 {
-    interface IGameRules
+    public interface IGameRules
     {
-//        bool HasWinner(IBoard board);
+        bool HasWinner(Board board);
     }
 }

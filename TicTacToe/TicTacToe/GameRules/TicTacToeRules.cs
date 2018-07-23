@@ -9,11 +9,10 @@ namespace TicTacToe
     {
         private readonly int NumberOfSymbolsInALineToWin = 3;
 
-        public bool HasWinner(TicTacToeBoard board)
+        public bool HasWinner(Board board)
         {
-            var playedMoves = board.PlayedMoves;
-            var lastPlayedSymbol = playedMoves.Last().Symbol;
-            var coordinates = playedMoves.Where(move => move.Symbol == lastPlayedSymbol)
+            var lastPlayedSymbol = board.PlayedMoves.Last().Symbol;
+            var coordinates = board.PlayedMoves.Where(move => move.Symbol == lastPlayedSymbol)
                 .Select(move => move.Coordinates)
                 .ToList();
             

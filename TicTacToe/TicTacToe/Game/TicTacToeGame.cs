@@ -1,24 +1,26 @@
-﻿using System.Linq;
+﻿using System.Data.Common;
+using System.Linq;
 using TicTacToe.Enum;
+using TicTacToe.GameRules;
 
 namespace TicTacToe
 {
-    public class TicTacToeGame
+    public class TicTacToeGame: IGame
     {
         private readonly TicTacToeBoard GameBoard;
         private readonly TicTacToeRules GameRules;
-        private GameStatus GameStatus;
+        public GameStatus GameStatus { get; private set; }
 
-        public TicTacToeGame(TicTacToeBoard gameBoard, TicTacToeRules gameRules)
+        public TicTacToeGame(Board gameBoard, IGameRules gameRules)
         {
-            GameBoard = gameBoard;
-            GameRules = gameRules;
+            GameBoard = (TicTacToeBoard) gameBoard;
+            GameRules = (TicTacToeRules) gameRules;
             GameStatus = GameStatus.PLAYING;
         }
 
         public Symbol? GetWinner()
         {
-            if (GameStatus == GameStatus.OVER && GameRules.HasWinner(GameBoard))
+            if (GameStatus == GameStatus.OVER && GameRules.HasWinner(GameBoard)) // necessary to check if there is winner ?
             {
                 var lastPlayedSymbol = GameBoard.PlayedMoves.Last().Symbol;
                 return lastPlayedSymbol;
@@ -30,7 +32,7 @@ namespace TicTacToe
         {
             if (GameRules.HasWinner(GameBoard))
             {
-                GameStatus = GameStatus.OVER;
+                GameStatus = GameStatus.OVER; 
                 return true;
             }
             var isDrawGame = IsDrawGame();
@@ -46,6 +48,11 @@ namespace TicTacToe
                 return true;
             }
             return false;
+        } 
+
+        public void PlayMove(PlayerMove playerMove)
+        {
+            GameBoard.UpdateBoard(playerMove);
         }
     }
 }
