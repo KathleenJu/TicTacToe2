@@ -5,17 +5,15 @@ using TicTacToe.GameRules;
 
 namespace TicTacToe
 {
-    public class TicTacToeGame: IGame
+    public class TicTacToeGame : Game
     {
-        private readonly TicTacToeBoard GameBoard;
-        private readonly TicTacToeRules GameRules;
-        public GameStatus GameStatus { get; private set; }
-
-        public TicTacToeGame(Board gameBoard, IGameRules gameRules)
+        public TicTacToeGame(Board gameBoard, IGameRules gameRules) : base(gameBoard, gameRules)
         {
-            GameBoard = (TicTacToeBoard) gameBoard;
-            GameRules = (TicTacToeRules) gameRules;
-            GameStatus = GameStatus.PLAYING;
+        }
+
+        public void PlayMove(PlayerMove playerMove)
+        {
+            GameBoard.UpdateBoard(playerMove);
         }
 
         public Symbol? GetWinner()
@@ -32,9 +30,10 @@ namespace TicTacToe
         {
             if (GameRules.HasWinner(GameBoard))
             {
-                GameStatus = GameStatus.OVER; 
+                GameStatus = GameStatus.OVER;
                 return true;
             }
+
             var isDrawGame = IsDrawGame();
             return isDrawGame;
         }
@@ -47,12 +46,8 @@ namespace TicTacToe
                 GameStatus = GameStatus.OVER;
                 return true;
             }
-            return false;
-        } 
 
-        public void PlayMove(PlayerMove playerMove)
-        {
-            GameBoard.UpdateBoard(playerMove);
+            return false;
         }
     }
 }
