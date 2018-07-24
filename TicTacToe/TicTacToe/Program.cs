@@ -9,12 +9,12 @@ namespace TicTacToe
     {
         static void Main(string[] args)
         {
-            var board = new TicTacToeBoard(3);
+            var board = new Board(3);
             var rules = new TicTacToeRules();
             var renderer = new ConsoleRenderer();
             var game = new ConsoleGame(board, rules, renderer);
             
-            game.StartGame(message);
+            game.StartGame("Welcome to TicTacToe game!");
         } 
     }
 }

@@ -3,6 +3,6 @@
     public interface IGameRules
     {
         bool HasWinner(Board board);
-        bool CheckPlayMovePosition(PlayerMove playerMove, Board board);
+        bool IsValidPlayMove(PlayerMove playerMove, Board board);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using TicTacToe.Enum;
 using TicTacToe.GameRules;
@@ -8,6 +9,8 @@ namespace TicTacToe
     public abstract class Game
     {
         public Board GameBoard { get; }
+        public List<Player> GamePlayers { get; }
+        public Player CurrentPlayer { get; protected set; }
         public IGameRules GameRules { get; }
         public GameStatus GameStatus { get; protected set; }
 
@@ -15,12 +18,13 @@ namespace TicTacToe
         {
             GameBoard = gameBoard;
             GameRules = gameRules;
+            GamePlayers = new List<Player>(); 
             GameStatus = GameStatus.PLAYING;
         }
 
         public bool PlayMove(PlayerMove playerMove)
         {
-            if (GameRules.CheckPlayMovePosition(playerMove, GameBoard))
+            if (GameRules.IsValidPlayMove(playerMove, GameBoard))
             {
                 GameBoard.UpdateBoard(playerMove);
                 return true;

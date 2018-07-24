@@ -4,13 +4,13 @@ using Xunit;
 
 namespace TicTacToeTests
 {
-    public class TicTacToeGameShould
+    public class ConsoleGameShould
     {
         [Fact]
         public void ReturnGameOverWhenThereIsAWinner()
         {
-            var board = new TicTacToeBoard(3);
-            var game = new ConsoleGame(board, new TicTacToeRules());
+            var board = new Board(3);
+            var game = new ConsoleGame(board, new TicTacToeRules(), new ConsoleRenderer());
             game.PlayMove(new PlayerMove(Symbol.Cross, new Coordinates(1, 1)));
             game.PlayMove(new PlayerMove(Symbol.Cross, new Coordinates(0, 2)));
             game.PlayMove(new PlayerMove(Symbol.Cross, new Coordinates(2, 0)));
@@ -22,8 +22,8 @@ namespace TicTacToeTests
         [Fact]
         public void ReturnDrawWhenBoardIsFullAndThereIsNoWinner()
         {
-            var board = new TicTacToeBoard(3);
-            var game = new ConsoleGame(board, new TicTacToeRules());
+            var board = new Board(3);
+            var game = new ConsoleGame(board, new TicTacToeRules(), new ConsoleRenderer());
             game.PlayMove(new PlayerMove(Symbol.Cross, new Coordinates(0, 0)));
             game.PlayMove(new PlayerMove(Symbol.Nought, new Coordinates(0, 1)));
             game.PlayMove(new PlayerMove(Symbol.Cross, new Coordinates(0, 2)));
@@ -42,8 +42,8 @@ namespace TicTacToeTests
         [Fact]
         public void ReturnTheCorrectWinnerOfTheGame()
         {
-            var board = new TicTacToeBoard(3);
-            var game = new ConsoleGame(board, new TicTacToeRules());
+            var board = new Board(3);
+            var game = new ConsoleGame(board, new TicTacToeRules(), new ConsoleRenderer());
             game.PlayMove(new PlayerMove(Symbol.Cross, new Coordinates(1, 1)));
             game.PlayMove(new PlayerMove(Symbol.Nought, new Coordinates(1, 0)));
             game.PlayMove(new PlayerMove(Symbol.Nought, new Coordinates(2, 1)));

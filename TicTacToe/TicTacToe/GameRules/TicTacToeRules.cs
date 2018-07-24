@@ -15,7 +15,6 @@ namespace TicTacToe
             var coordinates = board.PlayedMoves.Where(move => move.Symbol == lastPlayedSymbol)
                 .Select(move => move.Coordinates)
                 .ToList();
-            
             var hasWinningLine = new List<bool>
             {
                 CheckForWinningRow(coordinates),
@@ -23,10 +22,11 @@ namespace TicTacToe
                 CheckForWinningSecondaryDiagonalLine(coordinates),
                 CheckForWinningPrimaryDiagonalLine(coordinates)
             };
+            
             return hasWinningLine.Contains(true);
         }
 
-        public bool CheckPlayMovePosition(PlayerMove playerMove, Board board)
+        public bool IsValidPlayMove(PlayerMove playerMove, Board board)
         {
             if (board.IsEmptyPosition(playerMove.Coordinates) && board.IsValidCoordinate(playerMove.Coordinates))
             {
@@ -37,26 +37,22 @@ namespace TicTacToe
 
         private bool CheckForWinningRow(List<Coordinates> coordinates)
         {
-            var isWinningRow = coordinates.GroupBy(coord => coord.Row).Select(rows => rows.Count()).Any(count => count == NumberOfSymbolsInALineToWin);
-            return isWinningRow;
+            return coordinates.GroupBy(coord => coord.Row).Select(rows => rows.Count()).Any(count => count == NumberOfSymbolsInALineToWin);
         }
 
         private bool CheckForWinningColumn(List<Coordinates> coordinates)
         {
-            var isWinningColumn = coordinates.GroupBy(coord => coord.Column).Select(columns => columns.Count()).Any(count => count == NumberOfSymbolsInALineToWin);
-            return  isWinningColumn;
+            return  coordinates.GroupBy(coord => coord.Column).Select(columns => columns.Count()).Any(count => count == NumberOfSymbolsInALineToWin);
         }
 
         private bool CheckForWinningPrimaryDiagonalLine(List<Coordinates> coordinates)
         {
-            var isWinningDiagonalLine = coordinates.Where(coord => coord.Row == coord.Column).Distinct().Count() == NumberOfSymbolsInALineToWin;
-            return isWinningDiagonalLine;
+            return coordinates.Where(coord => coord.Row == coord.Column).Distinct().Count() == NumberOfSymbolsInALineToWin;
         }
 
         private bool CheckForWinningSecondaryDiagonalLine(List<Coordinates> coordinates)
         {
-            var isWinningDiagonalLine = coordinates.Where(coord => coord.Row + coord.Column == NumberOfSymbolsInALineToWin - 1).Distinct().Count() == NumberOfSymbolsInALineToWin;
-            return isWinningDiagonalLine;
+            return coordinates.Where(coord => coord.Row + coord.Column == NumberOfSymbolsInALineToWin - 1).Distinct().Count() == NumberOfSymbolsInALineToWin;
         }
     }
 }

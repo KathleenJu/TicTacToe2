@@ -10,8 +10,8 @@ namespace TicTacToe
     {
         public int BoardSize { get;}
         public List<PlayerMove> PlayedMoves { get; }
-        
-        protected Board(int boardSize)
+
+        public Board(int boardSize)
         {
             BoardSize = boardSize;
             PlayedMoves = new List<PlayerMove>();

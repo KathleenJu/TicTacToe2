@@ -21,14 +21,18 @@ namespace TicTacToe
             ConsoleRenderer.RenderMessage(welcomeMessage);
             ConsoleRenderer.RenderGameBoard(GameBoard);
            
+            GamePlayers.Add(new Player(1, Symbol.Cross));
+            GamePlayers.Add(new Player(2, Symbol.Nought));
+            CurrentPlayer = GamePlayers.OrderBy(player => player.Id).First();
+            
             while (GameStatus != GameStatus.OVER)
             {
-//                var move = GetPlayerMove();
-//                PlayMove(move);
-//                if (IsGameOver())
-//                {
-//                    GetWinner();
-//                }
+                var move = GetPlayerMove();
+                PlayMove(move);
+                if (IsGameOver())
+                {
+                    GetWinner();
+                }
             }
         }
 
@@ -37,12 +41,13 @@ namespace TicTacToe
             ConsoleRenderer.RenderMessage("Player {0} enter a coord x,y to place your {1} or enter 'q' to give up: ");
             var quitGame = "q";
             var playerInput = Console.ReadLine();
-           
+            throw new NotImplementedException();
+
         }
         
         private static bool InputAValidCoord(string input)
         {
-            return input != null && Regex.IsMatch(input, "^[1-3],[1-3]$");
+            return input != null && Regex.IsMatch(input, "^[0-9],[0-9]$");
         }
     }
 }
