@@ -32,33 +32,9 @@ namespace TicTacToe
             return false;
         }
 
-        public Symbol? GetWinner()
-        {
-            if (GameStatus == GameStatus.OVER && GameRules.HasWinner(GameBoard)) // necessary to check if there is winner? should it return null?
-            {
-                var lastPlayedSymbol = GameBoard.PlayedMoves.Last().Symbol;
-                return lastPlayedSymbol;
-            }
-
-            return null;
-        }
-
         public bool IsGameOver()
         {
-            if (GameRules.HasWinner(GameBoard))
-            {
-                GameStatus = GameStatus.OVER;
-                return true;
-            }
-
-            var isDrawGame = IsDrawGame();
-            return isDrawGame;
-        }
-
-        private bool IsDrawGame()
-        {
-            var fullBoard = GameBoard.PlayedMoves.Count == GameBoard.BoardSize * GameBoard.BoardSize;
-            if (fullBoard)
+            if (GameRules.HasWinner(GameBoard) || IsDrawGame())
             {
                 GameStatus = GameStatus.OVER;
                 return true;
@@ -67,8 +43,27 @@ namespace TicTacToe
             return false;
         }
 
+        private bool IsDrawGame()
+        {
+            var fullBoard = GameBoard.PlayedMoves.Count() == GameBoard.BoardSize * GameBoard.BoardSize;
+            return fullBoard;
+        }
+        
+        public Symbol? GetWinner()
+        {
+            if (GameStatus == GameStatus.OVER && GameRules.HasWinner(GameBoard))
+            {
+                var lastPlayedSymbol = GameBoard.PlayedMoves.Last().Symbol;
+                return lastPlayedSymbol;
+            }
+
+            return null;
+        }
+
         public abstract void StartGame(string welcomeMessage);
 
         public abstract PlayerMove GetPlayerMove();
+
+        protected abstract void EndGame();
     }
 }

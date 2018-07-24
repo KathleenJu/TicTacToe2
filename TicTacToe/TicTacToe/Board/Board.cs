@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Data;
 using System.Linq;
 using TicTacToe.Enum;
@@ -8,18 +9,19 @@ namespace TicTacToe
 {
     public class Board
     {
-        public int BoardSize { get;}
-        public List<PlayerMove> PlayedMoves { get; }
+        public int BoardSize { get; }
+        private readonly List<PlayerMove> _playedMoves;
+        public IEnumerable<PlayerMove> PlayedMoves => _playedMoves;
 
         public Board(int boardSize)
         {
             BoardSize = boardSize;
-            PlayedMoves = new List<PlayerMove>();
+            _playedMoves = new List<PlayerMove>();
         }
 
         public bool IsEmptyPosition(Coordinates coordinates)
         {
-            return !PlayedMoves.Any(move => move.Coordinates == coordinates);
+            return !_playedMoves.Any(move => move.Coordinates == coordinates);
         }
 
         public bool IsValidCoordinate(Coordinates coordinates)
@@ -30,7 +32,7 @@ namespace TicTacToe
 
         public void UpdateBoard(PlayerMove playerMove)
         {
-            PlayedMoves.Add(playerMove);
+            _playedMoves.Add(playerMove);
         }
     }
 }
