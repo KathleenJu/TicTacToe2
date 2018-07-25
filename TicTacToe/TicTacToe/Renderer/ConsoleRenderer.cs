@@ -13,18 +13,29 @@ namespace TicTacToe
 
         public void RenderGameBoard(Board board)
         {
-            var arrayBoard = new List<List<Symbol>>();
+            var arrayBoard = new List<List<Symbol>>
+            {
+                new List<Symbol>{Symbol.Empty, Symbol.Empty, Symbol.Empty},
+                new List<Symbol>{Symbol.Empty, Symbol.Empty, Symbol.Empty},
+                new List<Symbol>{Symbol.Empty, Symbol.Empty, Symbol.Empty}
+            };
+            
             foreach (var playedMove in board.PlayedMoves)
             {
-                arrayBoard[playedMove.Coordinates.Row - 1][playedMove.Coordinates.Column - 1] = playedMove.Symbol;
+                arrayBoard[playedMove.Coordinates.Row][playedMove.Coordinates.Column] = playedMove.Symbol;   
             }
 
             for (var row = 0; row < board.BoardSize; row++)
             {
                 for (var col = 0; col < board.BoardSize; col++)
                 {
-//                    arrayBoard[row][] = ;
+                    if (arrayBoard[row][col] != Symbol.Cross || arrayBoard[row][col] != Symbol.Nought)
+                    {
+                        arrayBoard[row][col] = Symbol.Empty;
+                    }
+                    Console.Write(" " + (char)arrayBoard[row][col] + " ");
                 }
+                Console.WriteLine(Environment.NewLine);
             }
         }
 

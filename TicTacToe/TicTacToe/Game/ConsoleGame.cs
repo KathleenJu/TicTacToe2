@@ -43,7 +43,7 @@ namespace TicTacToe
         {
             var playerPromptMessage = "Player " + CurrentPlayer.Id + " enter a coord x,y to place your" + CurrentPlayer.Symbol + " or enter 'q' to give up: ";
             ConsoleRenderer.RenderMessage(playerPromptMessage);
-            var quitGame = "q";
+            const string quitGame = "q";
             var playerInput = Console.ReadLine();
             if (playerInput == quitGame)
             {

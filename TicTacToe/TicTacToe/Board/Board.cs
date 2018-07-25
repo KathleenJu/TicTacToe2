@@ -26,8 +26,8 @@ namespace TicTacToe
 
         public bool IsValidCoordinate(Coordinates coordinates)
         {
-            return Enumerable.Range(0, BoardSize).Contains(coordinates.Row) &&
-                   Enumerable.Range(0, BoardSize).Contains(coordinates.Column);
+            var boardCoordRange = Enumerable.Range(0, BoardSize);
+            return boardCoordRange.Contains(coordinates.Row) && boardCoordRange.Contains(coordinates.Column);
         }
 
         public void UpdateBoard(PlayerMove playerMove)
