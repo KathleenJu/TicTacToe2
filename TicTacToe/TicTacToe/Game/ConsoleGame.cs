@@ -22,11 +22,9 @@ namespace TicTacToe
         {
             ConsoleRenderer.RenderMessage(welcomeMessage);
             ConsoleRenderer.RenderGameBoard(GameBoard);
-
-            GamePlayers.Add(new Player(1, Symbol.Cross));
-            GamePlayers.Add(new Player(2, Symbol.Nought));
-            CurrentPlayer = GamePlayers.OrderBy(player => player.Id).First();
-
+            AddPlayersToGame();
+            SetCurrentPlayer();
+            
             while (GameStatus != GameStatus.OVER)
             {
                 PlayMove(GetPlayerMove());
@@ -37,11 +35,24 @@ namespace TicTacToe
                 }
                 CurrentPlayer = GamePlayers.Where(player => player != CurrentPlayer).Select(player => player).First();
             }
+
+            GetWinner();
         }
 
+        private void AddPlayersToGame()
+        {
+            GamePlayers.Add(new Player(1, Symbol.Cross));
+            GamePlayers.Add(new Player(2, Symbol.Nought));
+        }
+
+        protected override void SetCurrentPlayer()
+        {
+            CurrentPlayer = GamePlayers.OrderBy(player => player.Id).First();
+        }
+        
         public override PlayerMove GetPlayerMove()
         {
-            var playerPromptMessage = "Player " + CurrentPlayer.Id + " enter a coord x,y to place your" + CurrentPlayer.Symbol + " or enter 'q' to give up: ";
+            var playerPromptMessage = "Player " + CurrentPlayer.Id + " enter a coord x,y to place your " + (char)CurrentPlayer.Symbol + " or enter 'q' to give up: ";
             ConsoleRenderer.RenderMessage(playerPromptMessage);
             const string quitGame = "q";
             var playerInput = Console.ReadLine();
@@ -55,7 +66,7 @@ namespace TicTacToe
                     var row = int.Parse(playerInput.Split(',')[0]) - 1;
                     var column = int.Parse(playerInput.Split(',')[1]) - 1;
                     var playerCoordinates = new Coordinates(row, column);
-                    return new PlayerMove(Symbol.Cross, playerCoordinates);
+                    return new PlayerMove(CurrentPlayer.Symbol, playerCoordinates);
                 }
             }
             throw new InvalidCoordinateFormatException();
@@ -70,5 +81,6 @@ namespace TicTacToe
         {
             GameStatus = GameStatus.OVER;
         }
+
     }
 }

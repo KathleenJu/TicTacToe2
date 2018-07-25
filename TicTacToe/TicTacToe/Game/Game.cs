@@ -65,5 +65,7 @@ namespace TicTacToe
         public abstract PlayerMove GetPlayerMove();
 
         protected abstract void EndGame();
+
+        protected abstract void SetCurrentPlayer();
     }
 }
