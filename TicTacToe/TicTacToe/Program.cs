@@ -14,7 +14,6 @@ namespace TicTacToe
             var renderer = new ConsoleRenderer();
             var game = new ConsoleGame(board, rules, renderer);
             
-            
             game.StartGame("Welcome to Tic Tac Toe! \n");
         } 
     }

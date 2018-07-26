@@ -5,7 +5,7 @@ using TicTacToe.Enum;
 
 namespace TicTacToe
 {
-    public class ConsoleRenderer : IRenderer
+    public class  ConsoleRenderer : IRenderer
     {
         public void RenderMessage(string message)
         {
