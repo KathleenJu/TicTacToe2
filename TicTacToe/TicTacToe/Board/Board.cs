@@ -13,6 +13,12 @@ namespace TicTacToe
         private readonly List<PlayerMove> _playedMoves;
         public IEnumerable<PlayerMove> PlayedMoves => _playedMoves;
 
+        public Board()
+        {
+            BoardSize = 3;
+            _playedMoves = new List<PlayerMove>();
+        }
+        
         public Board(int boardSize)
         {
             BoardSize = boardSize;

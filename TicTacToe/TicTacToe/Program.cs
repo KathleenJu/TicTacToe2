@@ -9,7 +9,7 @@ namespace TicTacToe
     {
         static void Main(string[] args)
         {
-            var board = new Board(3);
+            var board = new Board();
             var rules = new TicTacToeRules();
             var renderer = new ConsoleRenderer();
             var game = new ConsoleGame(board, rules, renderer);
