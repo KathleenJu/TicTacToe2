@@ -46,7 +46,7 @@ namespace TicTacToe
         
         public Player GetWinner()
         {
-            if (GameStatus == GameStatus.OVER && GameRules.HasWinner(GameBoard))
+            if (GameRules.HasWinner(GameBoard))
             {
                 return GameBoard.PlayedMoves.Last().Player;
             }

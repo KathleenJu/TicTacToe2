@@ -19,10 +19,10 @@ namespace TicTacToe
             _playedMoves = new List<PlayerMove>();
         }
         
-        public Board(int boardSize)
+        public Board(int boardSize): this()
         {
             BoardSize = boardSize;
-            _playedMoves = new List<PlayerMove>();
+//            _playedMoves = new List<PlayerMove>();
         }
 
         public bool IsEmptyPosition(Coordinates coordinates)
