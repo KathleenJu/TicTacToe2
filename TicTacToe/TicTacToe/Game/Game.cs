@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using TicTacToe.Enum;
+using TicTacToe.Exception;
 using TicTacToe.GameRules;
 
 namespace TicTacToe
@@ -29,18 +30,12 @@ namespace TicTacToe
                 GameBoard.UpdateBoard(playerMove);
                 return true;
             }
-            return false;
+            throw new InvalidCoordinateException("Invalid move. Either coord is taken or out of the board range. \n");
         }
 
         public bool IsGameOver()
         {
-            if (GameRules.HasWinner(GameBoard) || IsDrawGame())
-            {
-                GameStatus = GameStatus.OVER;
-                return true;
-            }
-
-            return false;
+            return GameRules.HasWinner(GameBoard) || IsDrawGame();
         }
 
         private bool IsDrawGame()
@@ -58,12 +53,15 @@ namespace TicTacToe
 
             return null;
         }
+        
+        protected void EndGame()
+        {
+            GameStatus = GameStatus.OVER;
+        }
 
         public abstract void StartGame(string welcomeMessage);
 
         public abstract PlayerMove GetPlayerMove();
-
-        protected abstract void EndGame();
 
         protected abstract void AddPlayersToGame();
 

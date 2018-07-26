@@ -21,7 +21,7 @@ namespace TicTacToe
 
         public bool IsEmptyPosition(Coordinates coordinates)
         {
-            return !_playedMoves.Any(move => move.Coordinates == coordinates);
+            return !_playedMoves.Any(move => move.Coordinates.Row == coordinates.Row && move.Coordinates.Column == coordinates.Column);
         }
 
         public bool IsValidCoordinate(Coordinates coordinates)

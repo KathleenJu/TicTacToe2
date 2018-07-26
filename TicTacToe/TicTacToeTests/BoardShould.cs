@@ -12,14 +12,8 @@ namespace TicTacToeTests
     {
         [Theory]
         [InlineData(0,0)]
-        [InlineData(0,1)]
-        [InlineData(0,2)]
-        [InlineData(1,0)]
-        [InlineData(1,1)]
         [InlineData(1,2)]
         [InlineData(2,0)]
-        [InlineData(2,1)]
-        [InlineData(2,2)]
         public void ReturnTrueWhenThePositionIsEmpty(int row, int column)
         {
             var board = new Board(3);

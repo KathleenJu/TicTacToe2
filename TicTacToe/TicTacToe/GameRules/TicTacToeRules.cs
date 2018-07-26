@@ -28,29 +28,25 @@ namespace TicTacToe
 
         public bool IsValidPlayMove(PlayerMove playerMove, Board board)
         {
-            if (board.IsEmptyPosition(playerMove.Coordinates) && board.IsValidCoordinate(playerMove.Coordinates))
-            {
-                return true;
-            }
-            return false;
+            return board.IsEmptyPosition(playerMove.Coordinates) && board.IsValidCoordinate(playerMove.Coordinates);
         }
 
-        private bool CheckForWinningRow(List<Coordinates> coordinates)
+        private bool CheckForWinningRow(IEnumerable<Coordinates> coordinates)
         {
             return coordinates.GroupBy(coord => coord.Row).Select(rows => rows.Count()).Any(count => count == NumberOfSymbolsInALineToWin);
         }
 
-        private bool CheckForWinningColumn(List<Coordinates> coordinates)
+        private bool CheckForWinningColumn(IEnumerable<Coordinates> coordinates)
         {
             return  coordinates.GroupBy(coord => coord.Column).Select(columns => columns.Count()).Any(count => count == NumberOfSymbolsInALineToWin);
         }
 
-        private bool CheckForWinningPrimaryDiagonalLine(List<Coordinates> coordinates)
+        private bool CheckForWinningPrimaryDiagonalLine(IEnumerable<Coordinates> coordinates)
         {
             return coordinates.Where(coord => coord.Row == coord.Column).Distinct().Count() == NumberOfSymbolsInALineToWin;
         }
 
-        private bool CheckForWinningSecondaryDiagonalLine(List<Coordinates> coordinates)
+        private bool CheckForWinningSecondaryDiagonalLine(IEnumerable<Coordinates> coordinates)
         {
             return coordinates.Where(coord => coord.Row + coord.Column == NumberOfSymbolsInALineToWin - 1).Distinct().Count() == NumberOfSymbolsInALineToWin;
         }

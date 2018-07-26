@@ -42,7 +42,7 @@ namespace TicTacToe
             }
             else
             {
-                Console.WriteLine("Game was a draw!");
+                Console.WriteLine("Game was a draw!"); //if called earlier in the game, wont say no winner 
             }
         }
     }

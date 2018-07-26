@@ -26,9 +26,9 @@ namespace TicTacToeTests
         }
 
         [Theory]
-        [InlineData(0, 2)]
-        [InlineData(1, 1)]
-        [InlineData(2, 2)]
+        [InlineData(4, 0)]
+        [InlineData(1, -1)]
+        [InlineData(2, 4)]
         public void ReturnFalseIfPositionIsNotEmptyAndOutOfTheBoardsCoordinates(int row, int column)
         {
             var board = new Board(3);
@@ -37,7 +37,7 @@ namespace TicTacToeTests
             var playerMove = new PlayerMove(new Player(1, Symbol.Cross), coordinates);
             var actualOutput = rules.IsValidPlayMove(playerMove, board);
 
-            Assert.True(actualOutput);
+            Assert.False(actualOutput);
         }
 
         [Fact]

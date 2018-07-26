@@ -28,13 +28,32 @@ namespace TicTacToe
 
             while (GameStatus != GameStatus.OVER)
             {
-                PlayMove(GetPlayerMove());
-                ConsoleRenderer.RenderMessage("Move accepted, here's the current board: \n");
-                ConsoleRenderer.RenderGameBoard(GameBoard);
-                IsGameOver();
-                CurrentPlayer = GamePlayers.Where(player => player != CurrentPlayer).Select(player => player).First();
+                PlayCurrentPlayersTurn();
             }
+
             ConsoleRenderer.RenderWinner(GetWinner());
+        }
+
+        private void PlayCurrentPlayersTurn()
+        {
+            try
+            {
+                PlayMove(GetPlayerMove());
+            }
+            catch (InvalidCoordinateException ex)
+            {
+                ConsoleRenderer.RenderMessage(ex.ExceptionMessage);
+                return;
+            }
+
+            ConsoleRenderer.RenderMessage("Move accepted, here's the current board: \n");
+            ConsoleRenderer.RenderGameBoard(GameBoard);
+            if (IsGameOver())
+            {
+                EndGame();
+            }
+
+            CurrentPlayer = GamePlayers.Where(player => player != CurrentPlayer).Select(player => player).First();
         }
 
         protected override void AddPlayersToGame()
@@ -60,7 +79,7 @@ namespace TicTacToe
                 EndGame();
             }
 
-            if (InputAValidCoord(playerInput))
+            if (IsInputAValidCoord(playerInput))
             {
                 var row = int.Parse(playerInput.Split(',')[0]) - 1;
                 var column = int.Parse(playerInput.Split(',')[1]) - 1;
@@ -68,17 +87,12 @@ namespace TicTacToe
                 return new PlayerMove(CurrentPlayer, playerCoordinates);
             }
 
-            throw new InvalidCoordinateFormatException();
+            throw new InvalidCoordinateException("Wrong coordination format. Try again. \n");
         }
 
-        private static bool InputAValidCoord(string input)
+        private static bool IsInputAValidCoord(string input)
         {
             return input != null && Regex.IsMatch(input, "^[0-9],[0-9]$");
-        }
-
-        protected override void EndGame()
-        {
-            GameStatus = GameStatus.OVER;
         }
     }
 }
