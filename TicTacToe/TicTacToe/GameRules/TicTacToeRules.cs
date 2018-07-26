@@ -11,8 +11,8 @@ namespace TicTacToe
 
         public bool HasWinner(Board board)
         {
-            var lastPlayedSymbol = board.PlayedMoves.Last().Symbol;
-            var coordinates = board.PlayedMoves.Where(move => move.Symbol == lastPlayedSymbol)
+            var lastPlayer = board.PlayedMoves.Last().Player;
+            var coordinates = board.PlayedMoves.Where(move => move.Player == lastPlayer)
                 .Select(move => move.Coordinates)
                 .ToList();
             var hasWinningLine = new List<bool>

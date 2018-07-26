@@ -20,7 +20,7 @@ namespace TicTacToe
                 {
                     var symbolOfCurrentPosition = board.PlayedMoves
                         .Where(move => move.Coordinates.Row == row && move.Coordinates.Column == col)
-                        .Select(move => move.Symbol);
+                        .Select(move => move.Player.Symbol);
                     if (symbolOfCurrentPosition.Any())
                     {
                         Console.Write(" " + (char) symbolOfCurrentPosition.First() + " ");
@@ -34,7 +34,7 @@ namespace TicTacToe
             }
         }
 
-        public void RenderWinner()
+        public void RenderWinner(Player winner)
         {
             throw new NotImplementedException();
         }

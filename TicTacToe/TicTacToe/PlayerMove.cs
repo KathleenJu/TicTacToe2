@@ -4,12 +4,12 @@ namespace TicTacToe
 {
     public class PlayerMove 
     {
-        public Symbol Symbol { get; }
+        public Player Player { get;  }
         public Coordinates Coordinates { get; }
 
-        public PlayerMove(Symbol symbol, Coordinates coordinates)
+        public PlayerMove(Player player, Coordinates coordinates)
         {
-            Symbol = symbol;
+            Player = player;
             Coordinates = coordinates;
         }
     }

@@ -49,12 +49,11 @@ namespace TicTacToe
             return fullBoard;
         }
         
-        public Symbol? GetWinner()
+        public Player GetWinner()
         {
             if (GameStatus == GameStatus.OVER && GameRules.HasWinner(GameBoard))
             {
-                var lastPlayedSymbol = GameBoard.PlayedMoves.Last().Symbol;
-                return lastPlayedSymbol;
+                return GameBoard.PlayedMoves.Last().Player;
             }
 
             return null;

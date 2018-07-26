@@ -4,6 +4,6 @@
     {
         void RenderMessage(string message);
         void RenderGameBoard(Board board);
-        void RenderWinner(); 
+        void RenderWinner(Player winner); 
     }
 }

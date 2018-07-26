@@ -37,7 +37,7 @@ namespace TicTacToeTests
         {
             var board = new Board(3);
             var coordinates = new Coordinates(row, column);
-            board.UpdateBoard(new PlayerMove(Symbol.Nought, coordinates));
+            board.UpdateBoard(new PlayerMove(new Player(1, Symbol.Nought), coordinates));
             var actualOutput = board.IsEmptyPosition(coordinates);
  
             Assert.False(actualOutput);
@@ -51,7 +51,7 @@ namespace TicTacToeTests
         {
             var board = new Board(3);
             var coordinates = new Coordinates(row, column);
-            var playMove = new PlayerMove(Symbol.Nought, coordinates);
+            var playMove = new PlayerMove(new Player(1, Symbol.Nought), coordinates);
             board.UpdateBoard(playMove);
             
             Assert.True(board.PlayedMoves.Contains(playMove));
