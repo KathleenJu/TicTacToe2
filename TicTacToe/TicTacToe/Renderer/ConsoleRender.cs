@@ -9,7 +9,7 @@ namespace TicTacToe
     {
         public void RenderMessage(string message)
         {
-            Console.Write("{0}", message);
+            Console.Write(message);
         }
 
         public void RenderGameBoard(Board board)
@@ -36,7 +36,14 @@ namespace TicTacToe
 
         public void RenderWinner(Player winner)
         {
-            throw new NotImplementedException();
+            if (winner != null)
+            {
+                Console.WriteLine("Move accepted, well done Player " + winner.Id + " you've won the game!");
+            }
+            else
+            {
+                Console.WriteLine("Game was a draw!");
+            }
         }
     }
 }

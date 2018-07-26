@@ -34,10 +34,10 @@ namespace TicTacToe
                 IsGameOver();
                 CurrentPlayer = GamePlayers.Where(player => player != CurrentPlayer).Select(player => player).First();
             }
-//            ConsoleRenderer.RenderWinner(GetWinner());
+            ConsoleRenderer.RenderWinner(GetWinner());
         }
 
-        private void AddPlayersToGame()
+        protected override void AddPlayersToGame()
         {
             GamePlayers.Add(new Player(1, Symbol.Cross));
             GamePlayers.Add(new Player(2, Symbol.Nought));
