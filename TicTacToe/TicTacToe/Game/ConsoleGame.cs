@@ -62,12 +62,10 @@ namespace TicTacToe
 
             if (InputAValidCoord(playerInput))
             {
-                {
-                    var row = int.Parse(playerInput.Split(',')[0]) - 1;
-                    var column = int.Parse(playerInput.Split(',')[1]) - 1;
-                    var playerCoordinates = new Coordinates(row, column);
-                    return new PlayerMove(CurrentPlayer, playerCoordinates);
-                }
+                var row = int.Parse(playerInput.Split(',')[0]) - 1;
+                var column = int.Parse(playerInput.Split(',')[1]) - 1;
+                var playerCoordinates = new Coordinates(row, column);
+                return new PlayerMove(CurrentPlayer, playerCoordinates);
             }
 
             throw new InvalidCoordinateFormatException();
