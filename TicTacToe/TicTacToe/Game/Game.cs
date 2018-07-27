@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using TicTacToe.Enum;
 using TicTacToe.Exception;
@@ -46,12 +45,7 @@ namespace TicTacToe
         
         public Player GetWinner()
         {
-            if (GameRules.HasWinner(GameBoard))
-            {
-                return GameBoard.PlayedMoves.Last().Player;
-            }
-
-            return null;
+            return GameRules.HasWinner(GameBoard) ? GameBoard.PlayedMoves.Last().Player : null;
         }
         
         protected void EndGame()

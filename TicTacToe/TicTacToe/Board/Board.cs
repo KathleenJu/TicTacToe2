@@ -22,7 +22,6 @@ namespace TicTacToe
         public Board(int boardSize): this()
         {
             BoardSize = boardSize;
-//            _playedMoves = new List<PlayerMove>();
         }
 
         public bool IsEmptyPosition(Coordinates coordinates)
