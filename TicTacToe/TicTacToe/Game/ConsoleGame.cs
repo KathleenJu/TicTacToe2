@@ -41,53 +41,54 @@ namespace TicTacToe
         }
 
         private void SetBoardSize()
-        {           
+        {
             int boardSize;
             ConsoleRenderer.RenderMessage(
                 "Default board size is 3x3. \nIf you would like to change the board size, type in the number size or presss Enter to proceed with 3x3 board: ");
             var boardSizeInput = Console.ReadLine();
-//            if (boardSizeInput == "")
-//            {
-//                ConsoleRenderer.RenderMessage("enter\n");
-//            }
+            if (boardSizeInput == "")
+            {
+                return;
+            }
+
             while (!int.TryParse(boardSizeInput, out boardSize))
             {
                 ConsoleRenderer.RenderMessage(
-                    "Please type in a number for the board size or presss Enter to proceed with 3x3 board: ");
+                    "Please type in a number for the board size: ");
                 boardSizeInput = Console.ReadLine();
             }
 
             while (boardSize < 3 || boardSize > 10)
             {
-                ConsoleRenderer.RenderMessage("Minimum board size is 3 and can only be up to 10. Please enter the board size: ");
+                ConsoleRenderer.RenderMessage(
+                    "Minimum board size is 3 and can only be up to 10. Please enter the board size: ");
                 boardSize = Convert.ToInt32(Console.ReadLine());
             }
-                GameBoard.UpdateBoardSize(boardSize);
-            
-            
+
+            GameBoard.UpdateBoardSize(boardSize);
         }
 
         private void PlayCurrentPlayersTurn()
+        {
+            try
             {
-                try
-                {
-                    PlayMove(GetPlayerMove());
-                }
-                catch (InvalidCoordinateException ex)
-                {
-                    ConsoleRenderer.RenderMessage(ex.ExceptionMessage);
-                    return;
-                }
-
-                ConsoleRenderer.RenderMessage("Move accepted, here's the current board: \n");
-                ConsoleRenderer.RenderGameBoard(GameBoard);
-                if (IsGameOver())
-                {
-                    EndGame();
-                }
-
-                CurrentPlayer = GamePlayers.Where(player => player != CurrentPlayer).Select(player => player).First();
+                PlayMove(GetPlayerMove());
             }
+            catch (InvalidCoordinateException ex)
+            {
+                ConsoleRenderer.RenderMessage(ex.ExceptionMessage);
+                return;
+            }
+
+            ConsoleRenderer.RenderMessage("Move accepted, here's the current board: \n");
+            ConsoleRenderer.RenderGameBoard(GameBoard);
+            if (IsGameOver())
+            {
+                EndGame();
+            }
+
+            CurrentPlayer = GamePlayers.Where(player => player != CurrentPlayer).Select(player => player).First();
+        }
 
         protected override void AddPlayersToGame()
         {
