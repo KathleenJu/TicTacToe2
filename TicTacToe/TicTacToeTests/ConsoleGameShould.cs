@@ -9,7 +9,7 @@ namespace TicTacToeTests
         [Fact]
         public void ReturnGameOverWhenThereIsAWinner()
         {
-            var board = new Board(3);
+            var board = new Board();
             var game = new ConsoleGame(board, new TicTacToeRules(), new ConsoleRenderer());
             var player = new Player(1, Symbol.Cross);
             game.PlayMove(new PlayerMove(player, new Coordinates(1, 1)));
@@ -23,7 +23,7 @@ namespace TicTacToeTests
         [Fact]
         public void ReturnDrawWhenBoardIsFullAndThereIsNoWinner()
         {
-            var board = new Board(3);
+            var board = new Board();
             var game = new ConsoleGame(board, new TicTacToeRules(), new ConsoleRenderer());
             game.PlayMove(new PlayerMove(new Player(1, Symbol.Cross), new Coordinates(0, 0)));
             game.PlayMove(new PlayerMove(new Player(2, Symbol.Nought), new Coordinates(0, 1)));
@@ -43,7 +43,7 @@ namespace TicTacToeTests
         [Fact]
         public void ReturnTheCorrectWinnerOfTheGame()
         {
-            var board = new Board(3);
+            var board = new Board();
             var game = new ConsoleGame(board, new TicTacToeRules(), new ConsoleRenderer());
             var player1 = new Player(1, Symbol.Cross);
             var player2 = new Player(2, Symbol.Nought);

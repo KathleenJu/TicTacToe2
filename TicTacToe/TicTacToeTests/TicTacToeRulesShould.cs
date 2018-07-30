@@ -16,7 +16,7 @@ namespace TicTacToeTests
         [InlineData(1, 3)]
         public void ReturnTrueIfPositionIsEmptyAndWithinTheBoardsCoordinates(int row, int column)
         {
-            var board = new Board(3);
+            var board = new Board();
             var rules = new TicTacToeRules();
             var coordinates = new Coordinates(row, column);
             var playerMove = new PlayerMove(new Player(1, Symbol.Cross), coordinates);
@@ -31,7 +31,7 @@ namespace TicTacToeTests
         [InlineData(2, 4)]
         public void ReturnFalseIfPositionIsNotEmptyAndOutOfTheBoardsCoordinates(int row, int column)
         {
-            var board = new Board(3);
+            var board = new Board();
             var rules = new TicTacToeRules();
             var coordinates = new Coordinates(row, column);
             var playerMove = new PlayerMove(new Player(1, Symbol.Cross), coordinates);
@@ -43,7 +43,7 @@ namespace TicTacToeTests
         [Fact]
         public void ReturnWinnerWhenThereIsAWinningRow()
         {
-            var board = new Board(3);
+            var board = new Board();
             var player1 = new Player(1, Symbol.Cross);
             var player2 = new Player(2, Symbol.Nought);
             board.UpdateBoard(new PlayerMove(player1, new Coordinates(2, 0)));
@@ -58,7 +58,7 @@ namespace TicTacToeTests
         [Fact]
         public void ReturnWinnerWhenThereIsAWinningColumn()
         {
-            var board = new Board(3);
+            var board = new Board();
             var player = new Player(1, Symbol.Cross);
             board.UpdateBoard(new PlayerMove(player, new Coordinates(1, 2)));
             board.UpdateBoard(new PlayerMove(player, new Coordinates(0, 2)));
@@ -72,7 +72,7 @@ namespace TicTacToeTests
         [Fact]
         public void ReturnWinnerWhenThereIsAWinningPrimaryDiagonal()
         {
-            var board = new Board(3);
+            var board = new Board();
             var player = new Player(1, Symbol.Cross);
             board.UpdateBoard(new PlayerMove(player, new Coordinates(0, 0)));
             board.UpdateBoard(new PlayerMove(player, new Coordinates(1, 1)));
@@ -86,7 +86,7 @@ namespace TicTacToeTests
         [Fact]
         public void ReturnWinnerWhenThereIsAWinningSecondaryDiagonal()
         {
-            var board = new Board(3);
+            var board = new Board();
             var player = new Player(1, Symbol.Cross);
             board.UpdateBoard(new PlayerMove(player, new Coordinates(1, 1)));
             board.UpdateBoard(new PlayerMove(player, new Coordinates(0, 2)));
@@ -100,7 +100,7 @@ namespace TicTacToeTests
         [Fact]
         public void ReturnFalseWhenThereIsNoWinningLines()
         {
-            var board = new Board(3);
+            var board = new Board();
             var player = new Player(1, Symbol.Cross);
             board.UpdateBoard(new PlayerMove(player, new Coordinates(1, 0)));
             board.UpdateBoard(new PlayerMove(player, new Coordinates(0, 2)));
@@ -114,7 +114,7 @@ namespace TicTacToeTests
         [Fact]
         public void ReturnFalseWhenBoardIsFullAndThereIsNoWinner()
         {
-            var board = new Board(3);
+            var board = new Board();
             var player1 = new Player(1, Symbol.Cross);
             var player2 = new Player(2, Symbol.Nought);
             board.UpdateBoard(new PlayerMove(player1, new Coordinates(0, 0)));

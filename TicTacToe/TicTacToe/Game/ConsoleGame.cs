@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data.Common;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Text.RegularExpressions;
 using TicTacToe.Enum;
 using TicTacToe.Exception;
@@ -21,8 +22,13 @@ namespace TicTacToe
         public override void StartGame(string welcomeMessage)
         {
             ConsoleRenderer.RenderMessage(welcomeMessage);
+            ConsoleRenderer.RenderGameBoard(GameBoard);
+
+            SetBoardSize();
+
             ConsoleRenderer.RenderMessage("Here's the current board: \n");
             ConsoleRenderer.RenderGameBoard(GameBoard);
+
             AddPlayersToGame();
             SetCurrentPlayer();
 
@@ -32,6 +38,29 @@ namespace TicTacToe
             }
 
             ConsoleRenderer.RenderWinner(GetWinner());
+        }
+
+        private void SetBoardSize()
+        {
+            ConsoleRenderer.RenderMessage(
+                "Default board size is 3x3. \nIf you would like to change the board size, type in the number size or presss Enter to proceed with 3x3 board: ");
+
+            int boardSize;
+
+            while (!Int32.TryParse(Console.ReadLine(), out boardSize))
+            {
+                ConsoleRenderer.RenderMessage(
+                    "Please type in a number for the board size or presss Enter to proceed with 3x3 board: ");
+            }
+
+            if (boardSize >= 3 && boardSize <= 10)
+            {
+                GameBoard.UpdateBoardSize(boardSize);
+            }
+            else
+            {
+                ConsoleRenderer.RenderMessage("Minimum board size is 3 and can only be up to 10. \n");
+            }
         }
 
         private void PlayCurrentPlayersTurn()

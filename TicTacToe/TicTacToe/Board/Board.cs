@@ -9,7 +9,7 @@ namespace TicTacToe
 {
     public class Board
     {
-        public int BoardSize { get; }
+        public int BoardSize { get; private set; }
         private readonly List<PlayerMove> _playedMoves;
         public IEnumerable<PlayerMove> PlayedMoves => _playedMoves;
 
@@ -17,11 +17,6 @@ namespace TicTacToe
         {
             BoardSize = 3;
             _playedMoves = new List<PlayerMove>();
-        }
-        
-        public Board(int boardSize): this()
-        {
-            BoardSize = boardSize;
         }
 
         public bool IsEmptyPosition(Coordinates coordinates)
@@ -38,6 +33,11 @@ namespace TicTacToe
         public void UpdateBoard(PlayerMove playerMove)
         {
             _playedMoves.Add(playerMove);
+        }
+
+        public void UpdateBoardSize(int boardSize)
+        {
+            BoardSize = boardSize;
         }
     }
 }
