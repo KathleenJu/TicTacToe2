@@ -8,7 +8,7 @@ namespace TicTacToe
 {
     public abstract class Game
     {
-        public Board GameBoard { get; }
+        public Board GameBoard { get; private set; }
         public List<Player> GamePlayers { get; }
         public Player CurrentPlayer { get; protected set; }
         public IGameRules GameRules { get; }
@@ -48,12 +48,19 @@ namespace TicTacToe
             GameStatus = GameStatus.OVER;
         }
 
+        protected void SetGameBoard(int boardSize)
+        {
+            GameBoard = new Board(boardSize);
+        }
+
         public abstract void StartGame(string welcomeMessage);
 
-        public abstract PlayerMove GetPlayerMove();
+        protected abstract PlayerMove GetPlayerMove();
 
         protected abstract void AddPlayersToGame();
 
         protected abstract void SetCurrentPlayer();
+
+        protected abstract int GetBoardSize();
     }
 }

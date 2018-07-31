@@ -10,9 +10,15 @@ namespace TicTacToe
 {
     public class Board
     {
-        public int BoardSize { get; private set; }
+        public int BoardSize { get; }
         private readonly List<PlayerMove> _playedMoves;
         public IEnumerable<PlayerMove> PlayedMoves => _playedMoves;
+
+        public Board(int boardSize): this()
+        {
+            BoardSize = boardSize;
+            
+        }
 
         public Board()
         {
@@ -40,11 +46,6 @@ namespace TicTacToe
                 return;
             }
             throw new InvalidCoordinateException("Invalid move. Either coord is taken or out of the board range. \n");
-        }
-
-        public void UpdateBoardSize(int boardSize) // constructor should receive boardsize
-        {
-            BoardSize = boardSize;
         }
     }
 }

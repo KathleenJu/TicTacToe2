@@ -24,7 +24,7 @@ namespace TicTacToe
             ConsoleRenderer.RenderMessage(welcomeMessage);
             ConsoleRenderer.RenderGameBoard(GameBoard);
 
-            SetBoardSize();
+            SetGameBoard(GetBoardSize());
 
             ConsoleRenderer.RenderMessage("Here's the current board: \n");
             ConsoleRenderer.RenderGameBoard(GameBoard);
@@ -40,7 +40,7 @@ namespace TicTacToe
             ConsoleRenderer.RenderWinner(GetWinner());
         }
 
-        private void SetBoardSize()
+        protected override int GetBoardSize()
         {
             int boardSize;
             ConsoleRenderer.RenderMessage(
@@ -48,7 +48,7 @@ namespace TicTacToe
             var boardSizeInput = Console.ReadLine();
             if (boardSizeInput == "")
             {
-                return;
+                return 3;
             }
 
             while (!int.TryParse(boardSizeInput, out boardSize))
@@ -65,7 +65,7 @@ namespace TicTacToe
                 boardSize = Convert.ToInt32(Console.ReadLine());
             }
 
-            GameBoard.UpdateBoardSize(boardSize);
+            return boardSize;
         }
 
         private void PlayCurrentPlayersTurn()
@@ -101,7 +101,8 @@ namespace TicTacToe
             CurrentPlayer = GamePlayers.OrderBy(player => player.Id).First();
         }
 
-        public override PlayerMove GetPlayerMove()
+
+        protected override PlayerMove GetPlayerMove()
         {
             var playerPromptMessage = "Player " + CurrentPlayer.Id + " enter a coord x,y to place your " +
                                       (char) CurrentPlayer.Symbol + " or enter 'q' to give up: ";
