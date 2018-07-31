@@ -14,9 +14,8 @@ namespace TicTacToe
         public IGameRules GameRules { get; }
         public GameStatus GameStatus { get; protected set; }
 
-        protected Game(Board gameBoard, IGameRules gameRules)
+        protected Game(IGameRules gameRules)
         {
-            GameBoard = gameBoard;
             GameRules = gameRules;
             GamePlayers = new List<Player>();
             GameStatus = GameStatus.PLAYING;

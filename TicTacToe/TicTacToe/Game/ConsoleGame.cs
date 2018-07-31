@@ -13,8 +13,7 @@ namespace TicTacToe
     {
         private readonly ConsoleRenderer ConsoleRenderer;
 
-        public ConsoleGame(Board gameBoard, IGameRules gameRules, ConsoleRenderer consoleRenderer) : base(gameBoard,
-            gameRules)
+        public ConsoleGame(IGameRules gameRules, ConsoleRenderer consoleRenderer) : base(gameRules)
         {
             ConsoleRenderer = consoleRenderer;
         }
