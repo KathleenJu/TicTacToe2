@@ -24,7 +24,6 @@ namespace TicTacToe
             ConsoleRenderer.RenderGameBoard(GameBoard);
 
             SetGameBoard(GetBoardSize());
-
             ConsoleRenderer.RenderMessage("Here's the current board: \n");
             ConsoleRenderer.RenderGameBoard(GameBoard);
 
@@ -59,9 +58,15 @@ namespace TicTacToe
 
             while (boardSize < 3 || boardSize > 10)
             {
-                ConsoleRenderer.RenderMessage(
-                    "Minimum board size is 3 and can only be up to 10. Please enter the board size: ");
-                boardSize = Convert.ToInt32(Console.ReadLine());
+                try
+                {
+                    ConsoleRenderer.RenderMessage(
+                        "Minimum board size is 3 and can only be up to 10. Please enter the board size: ");
+                    boardSize = Convert.ToInt32(Console.ReadLine());
+                }
+                catch (System.Exception)
+                {//ignored
+                }
             }
 
             return boardSize;

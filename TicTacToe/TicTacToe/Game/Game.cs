@@ -16,6 +16,7 @@ namespace TicTacToe
 
         protected Game(IGameRules gameRules)
         {
+            GameBoard = new Board();
             GameRules = gameRules;
             GamePlayers = new List<Player>();
             GameStatus = GameStatus.PLAYING;
