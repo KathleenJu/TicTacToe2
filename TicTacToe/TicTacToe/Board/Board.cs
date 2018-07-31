@@ -4,6 +4,7 @@ using System.Collections.Immutable;
 using System.Data;
 using System.Linq;
 using TicTacToe.Enum;
+using TicTacToe.Exception;
 
 namespace TicTacToe
 {
@@ -21,21 +22,27 @@ namespace TicTacToe
 
         public bool IsEmptyPosition(Coordinates coordinates)
         {
-            return !_playedMoves.Any(move => move.Coordinates.Row == coordinates.Row && move.Coordinates.Column == coordinates.Column);
+            return !_playedMoves.Any(move =>
+                move.Coordinates.Row == coordinates.Row && move.Coordinates.Column == coordinates.Column);
         }
 
         public bool IsValidCoordinate(Coordinates coordinates)
         {
-            var boardCoordRange = Enumerable.Range(0, BoardSize);
-            return boardCoordRange.Contains(coordinates.Row) && boardCoordRange.Contains(coordinates.Column);
+            return coordinates.Row < BoardSize && coordinates.Row >= 0 && coordinates.Column < BoardSize &&
+                   coordinates.Column >= 0;
         }
 
         public void UpdateBoard(PlayerMove playerMove)
         {
-            _playedMoves.Add(playerMove);
+            if (IsEmptyPosition(playerMove.Coordinates) && IsValidCoordinate(playerMove.Coordinates))
+            {
+                _playedMoves.Add(playerMove);
+                return;
+            }
+            throw new InvalidCoordinateException("Invalid move. Either coord is taken or out of the board range. \n");
         }
 
-        public void UpdateBoardSize(int boardSize)
+        public void UpdateBoardSize(int boardSize) // constructor should receive boardsize
         {
             BoardSize = boardSize;
         }

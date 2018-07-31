@@ -18,18 +18,13 @@ namespace TicTacToe
         {
             GameBoard = gameBoard;
             GameRules = gameRules;
-            GamePlayers = new List<Player>(); 
+            GamePlayers = new List<Player>();
             GameStatus = GameStatus.PLAYING;
         }
 
-        public bool PlayMove(PlayerMove playerMove)
+        public void PlayMove(PlayerMove playerMove)
         {
-            if (GameRules.IsValidPlayMove(playerMove, GameBoard))
-            {
-                GameBoard.UpdateBoard(playerMove);
-                return true;
-            }
-            throw new InvalidCoordinateException("Invalid move. Either coord is taken or out of the board range. \n");
+            GameBoard.UpdateBoard(playerMove);
         }
 
         public bool IsGameOver()
@@ -42,12 +37,12 @@ namespace TicTacToe
             var fullBoard = GameBoard.PlayedMoves.Count() == GameBoard.BoardSize * GameBoard.BoardSize;
             return fullBoard;
         }
-        
+
         public Player GetWinner()
         {
             return GameRules.HasWinner(GameBoard) ? GameBoard.PlayedMoves.Last().Player : null;
         }
-        
+
         protected void EndGame()
         {
             GameStatus = GameStatus.OVER;
