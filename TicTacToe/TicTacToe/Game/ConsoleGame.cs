@@ -18,7 +18,7 @@ namespace TicTacToe
             ConsoleRenderer = consoleRenderer;
         }
 
-        public override void StartGame(string welcomeMessage)
+        public void StartGame(string welcomeMessage)
         {
             ConsoleRenderer.RenderMessage(welcomeMessage);
             ConsoleRenderer.RenderGameBoard(GameBoard);
@@ -38,7 +38,7 @@ namespace TicTacToe
             ConsoleRenderer.RenderWinner(GetWinner());
         }
 
-        protected override int GetBoardSize()
+        public int GetBoardSize()
         {
             int boardSize;
             ConsoleRenderer.RenderMessage(
@@ -94,19 +94,19 @@ namespace TicTacToe
             CurrentPlayer = GamePlayers.Where(player => player != CurrentPlayer).Select(player => player).First();
         }
 
-        protected override void AddPlayersToGame()
+        protected void AddPlayersToGame()
         {
             GamePlayers.Add(new Player(1, Symbol.Cross));
             GamePlayers.Add(new Player(2, Symbol.Nought));
         }
 
-        protected override void SetCurrentPlayer()
+        protected void SetCurrentPlayer()
         {
             CurrentPlayer = GamePlayers.OrderBy(player => player.Id).First();
         }
 
 
-        protected override PlayerMove GetPlayerMove()
+        protected PlayerMove GetPlayerMove()
         {
             var playerPromptMessage = "Player " + CurrentPlayer.Id + " enter a coord x,y to place your " +
                                       (char) CurrentPlayer.Symbol + " or enter 'q' to give up: ";

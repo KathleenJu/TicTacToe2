@@ -1,15 +1,16 @@
-﻿using TicTacToe;
+﻿using System;
+using TicTacToe;
 using TicTacToe.Enum;
 using Xunit;
 
 namespace TicTacToeTests
 {
-    public class ConsoleGameShould
+    public class GameShould
     {
         [Fact]
         public void ReturnGameOverWhenThereIsAWinner()
         {
-            var game = new ConsoleGame(new TicTacToeRules(), new ConsoleRenderer());
+            var game = new Game(new TicTacToeRules());
             var player = new Player(1, Symbol.Cross);
             
             game.PlayMove(new PlayerMove(player, new Coordinates(1, 1)));
@@ -23,7 +24,7 @@ namespace TicTacToeTests
         [Fact]
         public void ReturnDrawWhenBoardIsFullAndThereIsNoWinner()
         {
-            var game = new ConsoleGame(new TicTacToeRules(), new ConsoleRenderer());
+            var game = new Game(new TicTacToeRules());            
             game.PlayMove(new PlayerMove(new Player(1, Symbol.Cross), new Coordinates(0, 0)));
             game.PlayMove(new PlayerMove(new Player(2, Symbol.Nought), new Coordinates(0, 1)));
             game.PlayMove(new PlayerMove(new Player(1, Symbol.Cross), new Coordinates(0, 2)));
@@ -42,7 +43,7 @@ namespace TicTacToeTests
         [Fact]
         public void ReturnTheCorrectWinnerOfTheGame()
         {
-            var game = new ConsoleGame(new TicTacToeRules(), new ConsoleRenderer());
+            var game = new Game(new TicTacToeRules());            
             var player1 = new Player(1, Symbol.Cross);
             var player2 = new Player(2, Symbol.Nought);
             game.PlayMove(new PlayerMove(player1, new Coordinates(1, 2)));
@@ -58,5 +59,41 @@ namespace TicTacToeTests
             Assert.True(gameOver);
             Assert.Equal(expectedWinner, actualWinner);
         }
+        
+        [Fact]
+        public void ReturnPlayerFromTheGamePlayersWhenPlayerIsAddedToTheGame()
+        {
+            var game = new Game(new TicTacToeRules());
+            var player = new Player(1, Symbol.Cross);
+            game.AddPlayerToGame(player);
+
+            Assert.NotEmpty(game.GamePlayers);
+            Assert.True(game.GamePlayers.Contains(player));
+        }
+        
+        [Fact]
+        public void NotAddPlayerToTheGamePlayersWhenPlayerIsAlreadyAddedToTheGame()
+        {
+            var game = new Game(new TicTacToeRules());
+            var player1 = new Player(1, Symbol.Cross);
+            var player2 = new Player(2, Symbol.Cross);
+
+            game.AddPlayerToGame(player1);
+
+            Assert.Throws<Exception>(() => game.AddPlayerToGame(player2));
+            Assert.NotEmpty(game.GamePlayers);
+            Assert.False(game.GamePlayers.Contains(player2));
+        }
+        
+        [Fact]
+        public void ReturnTheCorrectCurrentPlayer()
+        {
+            var game = new Game(new TicTacToeRules());
+            var player = new Player(1, Symbol.Cross);
+            game.SetCurrentPlayer(player);
+
+            Assert.True(game.CurrentPlayer.Equals(player));
+        }
+
     }
 }

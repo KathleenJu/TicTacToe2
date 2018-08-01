@@ -6,15 +6,15 @@ using TicTacToe.GameRules;
 
 namespace TicTacToe
 {
-    public abstract class Game
+    public class Game
     {
         public Board GameBoard { get; private set; }
         public List<Player> GamePlayers { get; }
         public Player CurrentPlayer { get; protected set; }
         public IGameRules GameRules { get; }
-        public GameStatus GameStatus { get; protected set; }
+        public GameStatus GameStatus { get; private set; }
 
-        protected Game(IGameRules gameRules)
+        public Game(IGameRules gameRules)
         {
             GameRules = gameRules;
             GameBoard = new Board();
@@ -43,24 +43,36 @@ namespace TicTacToe
             return GameRules.HasWinner(GameBoard) ? GameBoard.PlayedMoves.Last().Player : null;
         }
 
-        protected void EndGame()
+        public void EndGame()
         {
             GameStatus = GameStatus.OVER;
         }
 
-        protected void SetGameBoard(int boardSize)
+        public void SetGameBoard(int boardSize)
         {
             GameBoard = new Board(boardSize);
         }
 
-        public abstract void StartGame(string welcomeMessage);
+        public void StartGame()
+        {
+            GameStatus = GameStatus.PLAYING;
+        }
 
-        protected abstract PlayerMove GetPlayerMove();
+        public void AddPlayerToGame(Player player)
+        {
+            if (!GamePlayers.Any(gamePlayer => gamePlayer.Symbol == player.Symbol))
+            {
+                GamePlayers.Add(player);
+            }
+            else
+            {
+                throw new System.Exception("Mark already taken.");
+            }
+        }
 
-        protected abstract void AddPlayersToGame();
-
-        protected abstract void SetCurrentPlayer();
-
-        protected abstract int GetBoardSize();
+        public void SetCurrentPlayer(Player player)
+        {
+            CurrentPlayer = player;
+        }
     }
 }
