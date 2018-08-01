@@ -17,7 +17,6 @@ namespace TicTacToe
         public Board(int boardSize): this()
         {
             BoardSize = boardSize;
-            
         }
 
         public Board()
