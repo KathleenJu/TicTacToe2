@@ -28,7 +28,7 @@ namespace TicTacToe
 
         private bool CheckForWinningRow(IEnumerable<Coordinates> coordinates)
         {
-            return coordinates.GroupBy(coord => coord.Row).Select(rows => rows.Count()).Any(count => count == NumberOfSymbolsInALineToWin);
+            return  coordinates.GroupBy(coord => coord.Row).Select(rows => rows.Count()).Any(count => count == NumberOfSymbolsInALineToWin);
         }
 
         private bool CheckForWinningColumn(IEnumerable<Coordinates> coordinates)
