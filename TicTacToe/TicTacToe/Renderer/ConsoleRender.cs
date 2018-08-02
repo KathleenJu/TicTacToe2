@@ -8,7 +8,7 @@ using TicTacToe.Exception;
 
 namespace TicTacToe
 {
-    public class consoleRenderer : IRenderer
+    public class ConsoleRenderer : IRenderer
     {
         public void RenderMessage(string message)
         {

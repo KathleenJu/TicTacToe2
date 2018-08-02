@@ -17,7 +17,6 @@ namespace TicTacToe
         public Game(IGameRules gameRules)
         {
             GameRules = gameRules;
-            GameBoard = new Board();
             GamePlayers = new List<Player>();
             GameStatus = GameStatus.PLAYING;
         }
@@ -40,7 +39,7 @@ namespace TicTacToe
 
         public Player GetWinner()
         {
-            return GameRules.HasWinner(GameBoard) ? GameBoard.PlayedMoves.Last().Player : null;
+            return GameRules.HasWinner(GameBoard) && GameStatus == GameStatus.OVER? GameBoard.PlayedMoves.Last().Player : null;
         }
 
         public void EndGame()
