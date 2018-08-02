@@ -4,6 +4,7 @@ using System.Linq;
 using TicTacToe;
 using Moq;
 using TicTacToe.Enum;
+using TicTacToe.Exception;
 using Xunit;
 
 namespace TicTacToeTests
@@ -14,67 +15,43 @@ namespace TicTacToeTests
         [InlineData(0,0)]
         [InlineData(1,2)]
         [InlineData(2,0)]
-        public void ReturnTrueWhenThePositionIsEmpty(int row, int column)
+        public void UpdatesBoardWhenThePositionIsEmptyAndWithinTheBoardCoordinates(int row, int column)
         {
             var board = new Board(3);
             var coordinates = new Coordinates(row, column);
-            var actualOutput = board.IsEmptyPosition(coordinates);
-
-            Assert.True(actualOutput);
-        }
-
-        [Theory]
-        [InlineData(0,0)]
-        [InlineData(0,1)]
-        [InlineData(0,2)]
-        public void ReturnFalseIfPositionIsTaken(int row, int column)
-        {
-            var board = new Board(3);
-            var coordinates = new Coordinates(row, column);
-            board.UpdateBoard(new PlayerMove(new Player(1, Symbol.Nought), coordinates));
-            var actualOutput = board.IsEmptyPosition(coordinates);
- 
-            Assert.False(actualOutput);
-        }
-        
-        [Theory]
-        [InlineData(0,0)]
-        [InlineData(0,1)]
-        [InlineData(0,2)]
-        public void UpdateTheBoardWithThePlayMove(int row, int column)
-        {
-            var board = new Board(3);
-            var coordinates = new Coordinates(row, column);
-            var playMove = new PlayerMove(new Player(1, Symbol.Nought), coordinates);
-            board.UpdateBoard(playMove);
+            var playerMove = new PlayerMove(It.IsAny<Player>(), coordinates);
+            board.UpdateBoard(playerMove);
+            var boardUpdated = board.PlayedMoves.Contains(playerMove);
             
-            Assert.True(board.PlayedMoves.Contains(playMove));
+            Assert.True(boardUpdated);
         }
+
+        [Theory]
+        [InlineData(0,0)]
+        [InlineData(0,1)]
+        [InlineData(0,2)]
+        public void ThrowsAnExceptionWhenPositionIsTaken(int row, int column)
+        {
+            var board = new Board(3);
+            var coordinates = new Coordinates(row, column);
+            var playerMove = new PlayerMove(It.IsAny<Player>(), coordinates);
+            board.UpdateBoard(playerMove);
+            
+            Assert.Throws<InvalidCoordinateException>(() => board.UpdateBoard(playerMove));
+        }
+        
         
         [Theory]
         [InlineData(-1,0)]
         [InlineData(0,3)]
         [InlineData(2,4)]
-        public void ReturnTrueIfTheCoordinatesAreOutOfRange(int row, int column)
+        public void ThrowsAnExceptionWhenTheCoordinatesAreOutOfRange(int row, int column)
         {
             var board = new Board(3);
             var coordinates = new Coordinates(row, column);
-            var actualOutput = board.IsValidCoordinate(coordinates);
-
-            Assert.False(actualOutput);
-        }
-        
-        [Theory]
-        [InlineData(-1,0)]
-        [InlineData(0,3)]
-        [InlineData(2,4)]
-        public void ReturnFalseIfTheCoordinatesAreOutOfRange(int row, int column)
-        {
-            var board = new Board(3);
-            var coordinates = new Coordinates(row, column);
-            var actualOutput = board.IsValidCoordinate(coordinates);
-
-            Assert.False(actualOutput);
+            var playerMove = new PlayerMove(It.IsAny<Player>(), coordinates);
+            
+            Assert.Throws<InvalidCoordinateException>(() => board.UpdateBoard(playerMove));
         }
     }
 }

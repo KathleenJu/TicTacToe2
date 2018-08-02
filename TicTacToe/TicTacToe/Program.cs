@@ -15,10 +15,11 @@ namespace TicTacToe
             var game = new Game(new TicTacToeRules());
             var consoleRenderer = new consoleRenderer();
             var x = new X(game, consoleRenderer);
-            x.play();     
+            x.Play();     
         }
     }
-
+    
+    //move to a diff file
     class X
     {
         private readonly IRenderer Renderer;
@@ -30,7 +31,7 @@ namespace TicTacToe
             Game = game;
         }
 
-        public void play()
+        public void Play()
         {
             Game.StartGame();
             Renderer.RenderMessage("Welcome to Tic Tac Toe! \n");
