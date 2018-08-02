@@ -5,12 +5,12 @@ namespace TicTacToe
     public class Player
     {
         public int Id { get; }
-        public Symbol Symbol { get; }
+        public char Mark { get; }
         
-        public Player(int id, Symbol symbol)
+        public Player(int id, char mark)
         {
             Id = id;
-            Symbol = symbol;
+            Mark = mark;
         }
     }
 }

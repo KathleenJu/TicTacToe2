@@ -96,8 +96,8 @@ namespace TicTacToe
 
         protected void AddPlayersToGame()
         {
-            GamePlayers.Add(new Player(1, Symbol.Cross));
-            GamePlayers.Add(new Player(2, Symbol.Nought));
+//            GamePlayers.Add(new Player(1, Symbol.Cross));
+//            GamePlayers.Add(new Player(2, Symbol.Nought));
         }
 
         protected void SetCurrentPlayer()
@@ -109,7 +109,7 @@ namespace TicTacToe
         protected PlayerMove GetPlayerMove()
         {
             var playerPromptMessage = "Player " + CurrentPlayer.Id + " enter a coord x,y to place your " +
-                                      (char) CurrentPlayer.Symbol + " or enter 'q' to give up: ";
+                                      (char) CurrentPlayer.Mark + " or enter 'q' to give up: ";
             ConsoleRenderer.RenderMessage(playerPromptMessage);
             const string quitGame = "q";
             var playerInput = Console.ReadLine();

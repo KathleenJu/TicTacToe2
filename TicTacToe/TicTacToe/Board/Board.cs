@@ -24,19 +24,7 @@ namespace TicTacToe
             BoardSize = 3;
             _playedMoves = new List<PlayerMove>();
         }
-
-        public bool IsEmptyPosition(Coordinates coordinates)
-        {
-            return !_playedMoves.Any(move =>
-                move.Coordinates.Row == coordinates.Row && move.Coordinates.Column == coordinates.Column);
-        }
-
-        public bool IsValidCoordinate(Coordinates coordinates)
-        {
-            return coordinates.Row < BoardSize && coordinates.Row >= 0 && coordinates.Column < BoardSize &&
-                   coordinates.Column >= 0;
-        }
-
+        
         public void UpdateBoard(PlayerMove playerMove)
         {
             if (IsEmptyPosition(playerMove.Coordinates) && IsValidCoordinate(playerMove.Coordinates))
@@ -46,5 +34,19 @@ namespace TicTacToe
             }
             throw new InvalidCoordinateException("Invalid move. Either coord is taken or out of the board range. \n");
         }
+
+        private bool IsEmptyPosition(Coordinates coordinates)
+        {
+            return !_playedMoves.Any(move =>
+                move.Coordinates.Row == coordinates.Row && move.Coordinates.Column == coordinates.Column);
+        }
+
+        private bool IsValidCoordinate(Coordinates coordinates)
+        {
+            return coordinates.Row < BoardSize && coordinates.Row >= 0 && coordinates.Column < BoardSize &&
+                   coordinates.Column >= 0;
+        }
+
+       
     }
 }

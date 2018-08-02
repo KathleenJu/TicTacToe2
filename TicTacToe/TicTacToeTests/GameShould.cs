@@ -65,7 +65,7 @@ namespace TicTacToeTests
         {
             var game = new Game(new TicTacToeRules());
             var player = new Player(1, Symbol.Cross);
-            game.AddPlayerToGame(player);
+            game.AddPlayerToGame(TODO);
 
             Assert.NotEmpty(game.GamePlayers);
             Assert.True(game.GamePlayers.Contains(player));
@@ -78,9 +78,9 @@ namespace TicTacToeTests
             var player1 = new Player(1, Symbol.Cross);
             var player2 = new Player(2, Symbol.Cross);
 
-            game.AddPlayerToGame(player1);
+            game.AddPlayerToGame(TODO);
 
-            Assert.Throws<Exception>(() => game.AddPlayerToGame(player2));
+            Assert.Throws<Exception>(() => game.AddPlayerToGame(TODO));
             Assert.NotEmpty(game.GamePlayers);
             Assert.False(game.GamePlayers.Contains(player2));
         }

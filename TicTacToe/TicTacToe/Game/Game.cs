@@ -60,7 +60,7 @@ namespace TicTacToe
 
         public void AddPlayerToGame(Player player)
         {
-            if (!GamePlayers.Any(gamePlayer => gamePlayer.Symbol == player.Symbol))
+            if (!GamePlayers.Any(gamePlayer => gamePlayer.Mark == player.Mark))
             {
                 GamePlayers.Add(player);
             }
